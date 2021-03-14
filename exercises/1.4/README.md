@@ -45,27 +45,30 @@ Outra sintaxe:
 > chmod 777 *ARQUIVO*
 
 Onde o primeiro valor é igual ao usuário, o segundo igual ao grupo e o terceiro aos outros. Ficando:
-    **000**	---------
-    **400**	r--------
-    **444**	r--r--r--
-    **600**	rw-------
-    **620**	-rw--w----
-    **640**	-rw-r-----
-    **644**	rw-r--r--
-    **645**	-rw-r--r-x
-    **646**	-rw-r--rw-
-    **650**	-rw-r-x---
-    **660**	-rw-rw----
-    **661**	-rw-rw---x
-    **662**	-rw-rw--w-
-    **663**	-rw-rw--wx
-    **664**	-rw-rw-r--
-    **666**	rw-rw-r--
-    **700**	rwx------
-    **750**	rwxr-x---
-    **755**	rwxr-xr-x
-    **777**	rwxrwxrwx
-    **4711**	-rws--x--x
+
+    | Número | Permissões |
+    |--------|------------|
+    | **000** |	--------- |
+    | **400** |	r-------- |
+    | **444** | r--r--r-- |
+    | **600** |	rw------- |
+    | **620** |	-rw--w---- |
+    | **640** |	-rw-r----- |
+    | **644** |	rw-r--r-- |
+    | **645** |	-rw-r--r-x |
+    | **646** |	-rw-r--rw- |
+    | **650** |	-rw-r-x--- |
+    | **660** |	-rw-rw---- |
+    | **661** |	-rw-rw---x |
+    | **662** |	-rw-rw--w- |
+    | **663** |	-rw-rw--wx |
+    | **664** |	-rw-rw-r-- |
+    | **666** |	rw-rw-r-- |
+    | **700** |	rwx------ |
+    | **750** |	rwxr-x--- |
+    | **755** |	rwxr-xr-x |
+    | **777** |	rwxrwxrwx |
+    | **4711** | -rws--x--x |
 
 ### ps
 
