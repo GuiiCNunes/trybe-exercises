@@ -2,133 +2,137 @@
 
 ## Unix & Bash - Parte 1
 
-Apresentação do sistema Unix, Kernel e Shell.
-Comandos úteis do bash.
+    Apresentação do sistema Unix, Kernel e Shell.
+    Comandos úteis do bash.
 
-### ls -a
+    ### ls -a
 
-Listar todos os diretórios, inclusive ocultos.
+        Listar todos os diretórios, inclusive ocultos.
 
-> ls -a
+        > ls -a
 
-### cp
+    ### cp
 
-Copiar arquivos.
+        Copiar arquivos.
 
-> cp *ARQUIVO* *DIRETÓRIO_DESTINO*
+        > cp *ARQUIVO* *DIRETÓRIO_DESTINO*
 
-### cat
+    ### cat
 
-O *cat* pode visualizar e inserir conteúdo em arquivos.
-Para visualizar:
+        O *cat* pode visualizar e inserir conteúdo em arquivos.
+        Para visualizar:
 
-> cat *ARQUIVO*
+        > cat *ARQUIVO*
 
-Inserir(Sobrescrevendo o conteúdo ou acrescentando, respectivamente):
+        Inserir(Sobrescrevendo o conteúdo ou acrescentando, respectivamente):
 
-> cat > *ARQUIVO* 
+        > cat > *ARQUIVO* 
 
-> cat >> *ARQUIVO*
+        > cat >> *ARQUIVO*
 
-Para sair do editor de texto: **CTRL + D**
+        Para sair do editor de texto: **CTRL + D**
 
-### mv
+        Tambem é possível atribuir mesclar arquivos em um arquivo único.
 
-Move o arquivo entre diretórios, podendo ser utilizado para renomear (só colocar o nome novo após o caminho para o próprio diretório).
+            > cat *ARQUIVO1* *ARQUIVO2* > *ARQUIVO3*
 
-> mv *ARQUIVO* *DIRETÓRIO*
+    ### mv
 
-### rm
+        Move o arquivo entre diretórios, podendo ser utilizado para renomear (só colocar o nome novo após o caminho para o próprio diretório).
 
-Remove o arquivo.
+        > mv *ARQUIVO* *DIRETÓRIO*
 
-> rm *ARQUIVO*
+    ### rm
 
-Pode ser utilizado para excluir diretórios com conteúdo com:
+        Remove o arquivo.
 
-> rm -rf *DIRETÓRIO*
+        > rm *ARQUIVO*
 
-### rmdir
+        Pode ser utilizado para excluir diretórios com conteúdo com:
 
-Remover diretório vazio.
+        > rm -rf *DIRETÓRIO*
 
-> rmdir *DIRETÓRIO*
+    ### rmdir
 
-### less
+        Remover diretório vazio.
 
-Mostra um arquivo paginado.
+        > rmdir *DIRETÓRIO*
 
-> less *ARQUIVO*
+    ### less
 
-Utilizar **ESPAÇO** para avançar páginas e **Q** para sair. Pode realizar buscar dentro do arquivo utilizando **/*palavraDesejada***, nesse caso utilize **N** para avançar nos resultados.
+        Mostra um arquivo paginado.
 
-### head
+        > less *ARQUIVO*
 
-Mostra as 10 primeiras linhas do arquivo (pode mudar o número ao acrescentar **-*N***, sendo *N* a quantidade que deseja exibir)
+        Utilizar **ESPAÇO** para avançar páginas e **Q** para sair. Pode realizar buscar dentro do arquivo utilizando **/*palavraDesejada***, nesse caso utilize **N** para avançar nos resultados.
 
-> head *ARQUIVO* **ou** head -5 *ARQUIVO*
+    ### head
 
-### tail
+        Mostra as 10 primeiras linhas do arquivo (pode mudar o número ao acrescentar **-*N***, sendo *N* a quantidade que deseja exibir)
 
-Mostra as 10 ultimas linhas do arquivo (pode mudar o número ao acrescentar **-*N***, sendo *N* a quantidade que deseja exibir)
+        > head *ARQUIVO* **ou** head -5 *ARQUIVO*
 
-> tail *ARQUIVO* **ou** tail -5 *ARQUIVO*
+    ### tail
 
-### grep
+        Mostra as 10 ultimas linhas do arquivo (pode mudar o número ao acrescentar **-*N***, sendo *N* a quantidade que deseja exibir)
 
-Buscar palavras dentro de um arquivo.
+        > tail *ARQUIVO* **ou** tail -5 *ARQUIVO*
 
-> grep *PALAVRA* *ARQUIVO*
+    ### grep
 
-Outras expressões:
-    **-i** remove o *case-sensitive*
-    **-v** todos os valores que não possuem a palavra buscada
-    **-n** mostra a linha
-    **-c** mostra a quantidade
+        Buscar palavras dentro de um arquivo.
 
-### wc
+        > grep *PALAVRA* *ARQUIVO*
 
-Quantidade de linhas, palavras e caracteres de um arquivo.
+        Outras expressões:
+            **-i** remove o *case-sensitive*
+            **-v** todos os valores que não possuem a palavra buscada
+            **-n** mostra a linha
+            **-c** mostra a quantidade
 
-> wc *ARQUIVO*
+    ### wc
 
-Outras expressões:
-    **-l** só a quantidade de linhas
-    **-w** só a quantidade de palavras
-    **-c** só a quantidade de caracteres
+        Quantidade de linhas, palavras e caracteres de um arquivo.
 
-### man
+        > wc *ARQUIVO*
 
-Exibe o manual do comando.
+        Outras expressões:
+            **-l** só a quantidade de linhas
+            **-w** só a quantidade de palavras
+            **-c** só a quantidade de caracteres
 
-> man *COMANDO*
+    ### man
 
-### whatis
+        Exibe o manual do comando.
 
-Exibe o que o comando faz.
+        > man *COMANDO*
 
-> whatis *COMANDO*
+    ### whatis
 
-### apropos
+        Exibe o que o comando faz.
 
-Ajuda a encontrar um comando com a funcionalidade desejada.
+        > whatis *COMANDO*
 
-> apropos *FUNCIONALIDADE_DESEJADA*
+    ### apropos
 
-### Outros
+        Ajuda a encontrar um comando com a funcionalidade desejada.
 
-#### |
+        > apropos *FUNCIONALIDADE_DESEJADA*
 
-Utilizado para pegar o retorno de um comando e atribuir a outro
+    ### Outros
 
-> *COMANDO1* | *COMANDO2*
+        #### |
 
-#### ?
+            Utilizado para pegar o retorno de um comando e atribuir a outro
 
-*Wildcard* utilizado para substituir um caracter.
+            > *COMANDO1* | *COMANDO2*
 
-#### *
+        #### ?
 
-*Wildcard* utilizado para substituir um conjunto de caracteres.
+            *Wildcard* utilizado para substituir um caracter.
 
-**TOMAR CUIDADO COM EXPRESSÕES REGULARES (REGEX) AO UTILIZAR**
+        #### *
+
+            *Wildcard* utilizado para substituir um conjunto de caracteres.
+
+    **TOMAR CUIDADO COM EXPRESSÕES REGULARES (REGEX) AO UTILIZAR**
