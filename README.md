@@ -1,7 +1,8 @@
-# Trybe Exercises - Turma 11
+# Trybe Exercises - Turma 11 / Março2021
 
 Reposítorio destinado ao conteúdo e projetos do curso de  Desenvolvimento Web da Trybe.
-Turma 11 - Março/2021.
+
+#vqv #goTrybe
 
 ## [TRYBE](https://www.betrybe.com/)
 
@@ -16,7 +17,7 @@ São mais de 1500 horas de formação que aborda fundamentos de desenvolvimento 
 | 08/03/2021 |  | Welcome Days |
 | 09/03/2021 |  | Welcome Days |
 | 10/03/2021 | 1.3 | [Unix & Bash](/exercises/1.3/) |
-| 11/03/2021 | 1.4 | Unix & Bash |
+| 11/03/2021 | 1.4 | [Unix & Bash](/exercises/1.4/) |
 | 12/03/2021 | 2.1 | Git & GitHub - O que é e para que serve |
 
 *O dia segue uma organização de BLOCO.CONTEÚDO conforme a plataforma da Trybe*
