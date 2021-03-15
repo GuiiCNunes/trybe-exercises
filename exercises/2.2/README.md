@@ -48,3 +48,11 @@ git pull
 
 [Repositório do Google sobre](https://github.com/google/eng-practices)
 
+### git reset
+
+Retira o arquivo da *stage area* (depois do *add*).
+
+```
+git reset *NOME_ARQUIVO*
+```
+
