@@ -40,9 +40,14 @@ Cria uma nova *branch*:
 
 ### git checkout
 
-Altera entre as *branch*.
+Altera entre as *branch* ou entre commits.
 
 > git checkout *NOME_BRANCH_DESTINO*
+
+> git checkout *4_PRIMEIROS_N_HASH_COMMIT*
+
+Pode ser acrescentado no final o arquivo específico que quer voltar.
+Pode ser colocador após o *hash* de identificação (sem espaço entre eles) um *~1* para demonstrar que o commit volta a valer de fato.
 
 ### git log
 

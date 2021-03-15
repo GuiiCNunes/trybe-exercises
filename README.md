@@ -19,5 +19,6 @@ São mais de 1500 horas de formação que aborda fundamentos de desenvolvimento 
 | 10/03/2021 | 1.3 | [Unix & Bash](/exercises/1.3/) |
 | 11/03/2021 | 1.4 | [Unix & Bash](/exercises/1.4/) |
 | 12/03/2021 | 2.1 | [Git & GitHub - O que é e para que serve](/exercises/2.1/) |
+| 15/03/2021 | 2.2 | [Git & GitHub - Entendendo os comandos](/exercises/2.2/) |
 
 *O dia segue uma organização de BLOCO.CONTEÚDO conforme a plataforma da Trybe*
