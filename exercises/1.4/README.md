@@ -8,11 +8,15 @@ Comandos úteis do bash.
 
 Ordena os valores dentro de um arquivo.
 
-> sort *ARQUIVO*
+```
+sort *ARQUIVO*
+```
 
 Para atribuir os valores ordenados a outro arquivo:
 
-> sort *ARQUIVO_DESORDENADO* > *ARQUIVO_ORDENADO*
+```
+sort *ARQUIVO_DESORDENADO* > *ARQUIVO_ORDENADO*
+```
 
 *Pode ser utilizado **>>** para não sobrescrever.*
 
@@ -20,13 +24,17 @@ Para atribuir os valores ordenados a outro arquivo:
 
 Mostra o usuário que esta utilizando o sistema.
 
-> who
+```
+who
+```
 
 ### chmod
 
 Alterar as permissões de usuários em relação à arquivos e diretórios. O comando possui alternativas de sintaxes. Podendo ser:
 
-> chmod **u+rwx** *ARQUIVO*
+```
+chmod **u+rwx** *ARQUIVO*
+```
 
 Lembre-se:
     **u** referente ao usuário
@@ -42,7 +50,9 @@ Lembre-se:
 
 Outra sintaxe:
 
-> chmod 777 *ARQUIVO*
+```
+chmod 777 *ARQUIVO*
+```
 
 Onde o primeiro valor é igual ao usuário, o segundo igual ao grupo e o terceiro aos outros. Ficando:
 
@@ -74,19 +84,25 @@ Onde o primeiro valor é igual ao usuário, o segundo igual ao grupo e o terceir
 
 Lista os processos que estão rodando através do terminal.
 
-> ps
+```
+ps
+```
 
 ### jobs
 
 Lista os *jobs* em execução, estes são conjuntos de processos.
 
-> jobs
+```
+jobs
+```
 
 ### bg
 
 Coloca um processo suspenso no *background*.
 
-> bg *ID_PROCESSO*
+```
+bg *ID_PROCESSO*
+```
 
 *Tambem funciona colocando o id do jobs, só colocar **%** antes*.
 
@@ -94,7 +110,9 @@ Coloca um processo suspenso no *background*.
 
 Coloca um processo suspenso em *foreground*.
 
-> fg *ID_PROCESSO*
+```
+fg *ID_PROCESSO*
+```
 
 *Tambem funciona colocando o id do jobs, só colocar **%** antes*.
 
@@ -102,7 +120,9 @@ Coloca um processo suspenso em *foreground*.
 
 Mata o processo.
 
-> kill *ID_PROCESSO*
+```
+kill *ID_PROCESSO*
+```
 
 *Tambem funciona colocando o id do jobs, só colocar **%** antes*.
 
@@ -112,7 +132,9 @@ Pode utilizar o **-g** para forçar a parada.
 
 Pesquisar por arquivos e diretórios.
 
-> find *DIRETÓRIO* -name *PALAVRA_PESQUISADA* -type *TIPO_DESEJADO*
+```
+find *DIRETÓRIO* -name *PALAVRA_PESQUISADA* -type *TIPO_DESEJADO*
+```
 
 *No caso do **type**, pode ser **d** para diretório e **f** para arquivo.* 
 
@@ -122,11 +144,15 @@ Pode ser colocado **-iname** para deixar de ser *case-sensitive*. Tambem pode se
 
 Mostra o histórico de comandos utilizados no terminal.
 
-> history
+```
+history
+```
 
 Dica: utilizar em conjunto com **less**, **head** ou **tail**, utilizando o **|**.
 
-> history | tail -5
+```
+history | tail -5
+```
 
 ### Outros
 
@@ -134,7 +160,9 @@ Dica: utilizar em conjunto com **less**, **head** ou **tail**, utilizando o **|*
 
 O operador & após o comando, faz sua execução ser em *background*.
 
-> *COMANDO* &
+```
+*COMANDO* &
+```
 
 #### CTRL + Z
 
@@ -148,21 +176,28 @@ Mata o processo em execução.
 
 Mostra o usuário.
 
-> whoami
+```
+whoami
+```
 
 #### --help
 
 Mostra o help do comando.
 
-> *COMANDO* --help
+```
+*COMANDO* --help
+```
 
 #### !!
 
 Utiliza o comando anterior para completar o atual, podendo ser antes ou depois, depende do objetivo.
 
-> *COMANDO* !!
-
-> !! *COMANDO*
+```
+*COMANDO* !!
+```
+```
+!! *COMANDO*
+```
 
 ### Sites úteis
 

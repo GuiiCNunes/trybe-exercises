@@ -8,43 +8,58 @@ Comandos:
 
 Inicia o versionamento do diretório.
 
-> git init
+```
+git init
+```
 
 ### git add
 
 Adiciona o arquivo ao versionamento. Podendo conter mais de um arquivo ou um **.** para pegar o diretório todo.
 
-> git add *ARQUIVOS*
+```
+git add *ARQUIVOS*
+```
 
 ### git status
 
 Mostra o estado atual do versionamento, se houve modificações não rastreadas ou versionadas, como esta em relação ao remoto, etc...
 
-> git status
+```
+git status
+```
 
 ### git commit
 
 Confirma uma nova versão do código com as alterações feitas. Dica: **Não** deixar para fazer um commit com muitas alterações.
 
-> git commit -m '*RESUMO_ALTERAÇÕES*'
+```
+git commit -m '*RESUMO_ALTERAÇÕES*'
+```
 
 ### git branch
 
 Visualiza as *branch* disponíveis?
 
-> git branch
+```
+git branch
+```
 
 Cria uma nova *branch*:
 
-> git branch *NOME_DA_BRANCH*
+```
+git branch *NOME_DA_BRANCH*
+```
 
 ### git checkout
 
 Altera entre as *branch* ou entre commits.
 
-> git checkout *NOME_BRANCH_DESTINO*
-
-> git checkout *4_PRIMEIROS_N_HASH_COMMIT*
+```
+git checkout *NOME_BRANCH_DESTINO*
+```
+```
+git checkout *4_PRIMEIROS_N_HASH_COMMIT*
+```
 
 Pode ser acrescentado no final o arquivo específico que quer voltar.
 Pode ser colocador após o *hash* de identificação (sem espaço entre eles) um *~1* para demonstrar que o commit volta a valer de fato.
@@ -53,35 +68,47 @@ Pode ser colocador após o *hash* de identificação (sem espaço entre eles) um
 
 Exibe o histórico de *commits*.
 
-> git log
+```
+git log
+```
 
 ### git merge
 
 Junta a *branch* atual com a *branch* desejada.
 
-> git merge *BRANCH_DESEJADA*
+```
+git merge *BRANCH_DESEJADA*
+```
 
 ### git remote
 
 Vincula o repositório local com um remoto, atribuindo um apelido.
 
-> git remote add *APELIDO_REPOSITÓRIO* *LINK_REPOSITÓRIO_REMOTO*
+```
+git remote add *APELIDO_REPOSITÓRIO* *LINK_REPOSITÓRIO_REMOTO*
+```
 
 Para observar a qual repositório remoto o local esta vinculado rode:
 
-> git remote -v
+```
+git remote -v
+```
 
 ### git push
 
 Sobe as alterações do reposótio local para a *branch* desejada no remoto.
 
-> git push *APELIDO_REPOSITÓRIO* *BRANCH_DESEJADA*
+```
+git push *APELIDO_REPOSITÓRIO* *BRANCH_DESEJADA*
+```
 
 ### git reset
 
 Retorna a versão do repositório para a versão desejada.
 
-> git reset --hard *HASH_IDENTIFICAÇÃO_VERSÃO*
+```
+git reset --hard *HASH_IDENTIFICAÇÃO_VERSÃO*
+```
 
 *O reset pode ser hard, soft ou mix.* 
 

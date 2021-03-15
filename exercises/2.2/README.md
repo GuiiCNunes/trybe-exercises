@@ -6,13 +6,17 @@
 
 Clona uma repositório remoto para o local.
 
-> git clone *URL_REPOSITÓRIO*
+```
+git clone *URL_REPOSITÓRIO*
+```
 
 ### git rm
 
 Remove um arquivo do Git.
 
-> git rm *NOME_ARQUIVO*
+```
+git rm *NOME_ARQUIVO*
+```
 
 ### Arquivo Git Ignore
 
@@ -25,14 +29,18 @@ Arquivo pode ser configurado para ignorar arquivos com nome específico, tipos e
 Verifica se existe alterações no repositório remoto.
 **Não afeta a *workstation*, mas atualiza as versões.**
 
-> git fetch
+```
+git fetch
+```
 
 ### git pull
 
 Puxa as alterações do remoto para o local. *Fetch + Merge*
 **Afeta a *workstation*.**
 
-> git pull
+```
+git pull
+```
 
 ### Code Review
 
