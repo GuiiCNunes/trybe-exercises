@@ -56,3 +56,12 @@ Retira o arquivo da *stage area* (depois do *add*).
 git reset *NOME_ARQUIVO*
 ```
 
+### Recursos Adicionais
+
+- [Reforço de Git e GitHub](https://course.betrybe.com//fundamentals/git/reforco.pdf)
+- [Resolvendo um mistério de assassinato... Somente com comandos de Git!](https://github.com/nivbend/gitstery)
+- [Como conectar com o repositório no GitHub via SSH?](https://help.github.com/en/articles/connecting-to-github-with-ssh)
+- [Reforço sobre aprendizado do Git em um guia rápido](https://www.freecodecamp.org/news/learn-the-basics-of-git-in-under-10-minutes-da548267cc91/)
+- [Curso extenso e completo de Git](https://www.udacity.com/course/version-control-with-git--ud123)
+- [Como ignorar arquivos no Git](https://fjorgemota.com/gitignore-ou-como-ignorar-arquivos-no-git/)
+- [Tutorial do GitHub sobre o .gitignore](https://help.github.com/pt/github/using-git/ignoring-files)
