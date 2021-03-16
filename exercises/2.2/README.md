@@ -64,4 +64,5 @@ git reset *NOME_ARQUIVO*
 - [Reforço sobre aprendizado do Git em um guia rápido](https://www.freecodecamp.org/news/learn-the-basics-of-git-in-under-10-minutes-da548267cc91/)
 - [Curso extenso e completo de Git](https://www.udacity.com/course/version-control-with-git--ud123)
 - [Como ignorar arquivos no Git](https://fjorgemota.com/gitignore-ou-como-ignorar-arquivos-no-git/)
-- [Tutorial do GitHub sobre o .gitignore](https://help.github.com/pt/github/using-git/ignoring-files)[Estilizar o repositório](https://github.com/kautukkundan/Awesome-Profile-README-templates/tree/master/code-styled) *Para liberar o profile -> criar um novo repositório e nomeá-lo com nome do seu usuário.*
+- [Tutorial do GitHub sobre o .gitignore](https://help.github.com/pt/github/using-git/ignoring-files)
+- [Estilizar o repositório](https://github.com/kautukkundan/Awesome-Profile-README-templates/tree/master/code-styled) *Para liberar o profile -> criar um novo repositório e nomeá-lo com nome do seu usuário.*
