@@ -13,3 +13,7 @@ a:active {
 a:visited {
   color: darkgoldenrod;
 }
+
+ul, ol {
+  list-style: none;
+}
