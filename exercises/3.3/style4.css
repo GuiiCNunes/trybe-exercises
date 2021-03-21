@@ -26,3 +26,48 @@ li:nth-child(5n + 10),
 li:nth-child(7n + 14) {
   text-transform: none;
 }
+
+h1, h2, h3, h4, h5, h6 {
+  color: red;
+}
+
+h1 em, h2 em, h3 em, h4 em, h5 em, h6 em{
+  font-size: 40px;
+  border: 1px solid black;
+}
+
+li {
+  font-size: 20px;
+}
+
+li em {
+  font-weight: bold;
+}
+
+ul li:nth-child(-n+3) {
+  color: blue;
+}
+
+ul li span {
+  background-color: pink;
+}
+
+ul li:nth-child(1) a:hover {
+  color: orange;
+}
+
+ul li:nth-child(2) a:hover {
+  color: green;
+}
+
+ul li:nth-child(3) a:hover {
+  color: black;
+}
+
+ul li:nth-child(4) a:hover {
+  color: yellow;
+}
+
+ul li:nth-child(5) a:hover {
+  color: green;
+}
