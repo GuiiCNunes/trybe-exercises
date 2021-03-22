@@ -24,3 +24,15 @@ Para uma melhor organização, faça commits a cada tarefa concluída. Vamos aos
 ```
 
 *Obs: para esse exercício, é obrigatório fazer uso de, no mínimo , 6 elementos com as seguintes tags: header , nav , article , section , h1 , h2 , h3, aside , footer , table e img.*
+
+
+# Validando o exercício
+Agora que você criou a página mostrando fatos interessantes a respeito do Stomatopoda , suponha que uma pessoa com deficiência visual acesse sua página. Será que sua página estará **acessível** para essa pessoa? 🤔
+Vamos averiguar!
+Entre [neste site](https://achecker.ca/checker/index.php#output_div) , que valida se sua página é acessível ou não. No site há 3 formas para você submeter seu código **HTML** :
+1. Via url (a primeira, já selecionada quando carrega o site).
+2. Via upload do arquivo **HTML** (segunda aba).
+3. Via copiando + colando o código **HTML** (terceira e última aba).
+Ao submeter o código, você vai se deparar com erros de validação presentes em sua página, dando início a seu segundo exercício: **consertar todos os erros apontados** .
+Para cada erro de validação mostrado, você tem à disposição um link para a página com sua descrição. **Antes** de voltar para o código e já ir consertando, leia a descrição de cada erro para **entendê-lo** e poder consertá-lo.
+No fim do exercício, além de ter uma página acessível, você vai reforçar a prática de **consertar erros** , seja de validação (para este exercício), seja de lógica, com que você vai se deparar ao longo de sua carreira de desenvolvedor.
