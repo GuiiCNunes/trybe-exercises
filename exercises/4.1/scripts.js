@@ -4,3 +4,5 @@ let fullName = "Hulk Smash";
 
 console.log(age);
 console.log(fullName);
+
+console.log(typeof(age));
