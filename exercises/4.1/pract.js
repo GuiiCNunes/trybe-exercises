@@ -19,3 +19,7 @@ birthYear = 2020;
 console.log(name);
 console.log(birthCity);
 console.log(birthYear);
+
+// Não se pode atribuir novo valor a constantes
+// birthCity = 'Curitiba';
+console.log(birthCity);
