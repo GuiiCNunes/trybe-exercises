@@ -14,6 +14,7 @@ const name = 'Guilherme';
 const birthCity = 'Porto Alegre';
 
 let birthYear = 1992;
+birthYear = 2020;
 
 console.log(name);
 console.log(birthCity);
