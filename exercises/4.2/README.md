@@ -9,7 +9,7 @@
 - `.pop()` - Remove o ultimo item.
 - `.unshift()` - Adicionar elemento no começo do array.
 - `.shift()` - Exclui o primeiro item.
-- `indexOf()` - Procura o indice de um item no array.
+- `.indexOf()` - Procura o indice de um item no array.
 
 ## Links
 
