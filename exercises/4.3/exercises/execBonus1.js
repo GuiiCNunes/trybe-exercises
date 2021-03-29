@@ -1,17 +1,14 @@
-let size = 7;
+let size = 13;
+let mark = '*';
+let space = ' ';
+let range = 0; 
+let middle = Math.round(size / 2);
 
-for (let index = 0; index <= size; index += 1) {
+for (let index = 0; index < size; index += 2) {
   let line = '';
-  let middle = Math.round(size / 2);
-
-  for (let indexQuantityChar = 1; indexQuantityChar <= size; indexQuantityChar += 1) {
-    if (indexQuantityChar === middle + index || indexQuantityChar === middle - index) {
-      line += '*';
-    } else if (index === size - 4) {
-      line += '*';
-    } else {
-      line += ' ';
-    }
+  for (let indexOfLine = 1; indexOfLine <= size; indexOfLine += 1) {
+    line += indexOfLine >= middle - range && indexOfLine <= middle + range ? mark : space;
   }
+  range += 1;
   console.log(line);
 }
