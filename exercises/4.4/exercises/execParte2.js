@@ -31,3 +31,15 @@ function isTheIndexOfSmallest(array) {
 }
 
 console.log(isTheIndexOfSmallest([2, 4, 6, 7, 10, 0, -3]));
+
+console.log();
+
+function isTheIndexOfBiggets(array) {
+  let biggest = array[0];
+  for (let index in array) {
+    biggest = array[index].length > biggest.length ? array[index] : biggest;
+  }
+  return biggest;
+}
+
+console.log(isTheIndexOfBiggets(['José', 'Lucas', 'Nádia', 'Fernanda', 'Cairo', 'Joana']));
