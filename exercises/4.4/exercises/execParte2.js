@@ -8,4 +8,26 @@ function isPalindromo (word) {
   return true;
 }
 
-console.log(isPalindromo('casa'));
+console.log(isPalindromo('casa')); 
+
+console.log();
+
+function isTheIndexOfBiggets(array) {
+  let biggest = array[0];
+  for (let index in array) {
+    biggest = array[index] > biggest ? array[index] : biggest;
+  }
+  return array.indexOf(biggest);
+}
+
+console.log(isTheIndexOfBiggets([2, 3, 6, 7, 10, 1]));
+
+function isTheIndexOfSmallest(array) {
+  let smallest = array[0];
+  for (let index in array) {
+    smallest = array[index] < smallest ? array[index] : smallest;
+  }
+  return array.indexOf(smallest);
+}
+
+console.log(isTheIndexOfSmallest([2, 4, 6, 7, 10, 0, -3]));
