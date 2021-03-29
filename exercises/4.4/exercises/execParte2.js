@@ -43,3 +43,27 @@ function isTheIndexOfBiggets(array) {
 }
 
 console.log(isTheIndexOfBiggets(['José', 'Lucas', 'Nádia', 'Fernanda', 'Cairo', 'Joana']));
+
+console.log();
+
+// Fonte: https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Array/find
+// NÃO FUNCIONA AINDA
+function isMostRepeat(array) {
+  let numbers = {};
+  for(let number of array) {
+    let numberCache = array.find(element => element === number);
+    if (numberCache === undefined) {
+      array[number] = 1;
+    } else {
+      array[number] += 1;
+    }
+  }
+
+  let mostRepeat = 0;
+  for (let key in numbers) {
+    mostRepeat= numbers[key] > numbers[mostRepeat] ? key : mostRepeat;
+  }
+  return mostRepeat;
+}
+
+console.log(isMostRepeat([2, 3, 2, 5, 8, 2, 3]));
