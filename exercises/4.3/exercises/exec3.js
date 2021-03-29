@@ -1,4 +1,4 @@
-let size = 5;
+let size = 8;
 
 for (let index = size; index >= 0; index -= 1) {
   let line = '';
