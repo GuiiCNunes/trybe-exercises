@@ -77,6 +77,14 @@
          document.getElementsByTagName('p')[0].innerText = text;
        }
        toUppercaseP();
+
+       function printerConsole() {
+         let tagsP = document.getElementsByTagName('p');
+         for (let tag of tagsP) {
+           console.log(tag);
+         }
+       }
+       printerConsole();
     </script>
   </body>
 </html>
