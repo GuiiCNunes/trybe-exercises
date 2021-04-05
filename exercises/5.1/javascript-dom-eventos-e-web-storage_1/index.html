@@ -70,6 +70,13 @@
          document.getElementsByTagName('h1')[0].innerText = 'Exercício 5.1 - JavaScript';
        }
        correctH1()
+
+       function toUppercaseP() {
+         let originalText = document.getElementsByTagName('p')[0].innerText;
+         let text = originalText.toLocaleUpperCase();
+         document.getElementsByTagName('p')[0].innerText = text;
+       }
+       toUppercaseP();
     </script>
   </body>
 </html>
