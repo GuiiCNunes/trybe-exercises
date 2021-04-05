@@ -1,4 +1,3 @@
-document.querySelector('#container').style.alignItems = 'center';
 document.querySelector('#header-container').style.background = 'green';
 document.querySelector('.emergency-tasks').style.background = 'green';
 document.querySelector('.no-emergency-tasks').style.background = 'yellow';
