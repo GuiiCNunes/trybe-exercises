@@ -20,7 +20,7 @@
       <div id="quartoEUltimoFilho"></div>
     </div>
   </div>
-  <!-- 
+  <!-- Parte 1
     Acesse o elemento elementoOndeVoceEsta .
     Acesse pai a partir de elementoOndeVoceEsta e adicione uma color a ele.
     Acesse o primeiroFilhoDoFilho e adicione um texto a ele. Você se lembra dos vídeos da aula anterior, como fazer isso?
@@ -30,6 +30,13 @@
     Agora acesse o terceiroFilho a partir de elementoOndeVoceEsta .
     Agora acesse o terceiroFilho a partir de pai . 
   -->
+
+  <!-- Parte 2
+    Crie um irmão para elementoOndeVoceEsta .
+    Crie um filho para elementoOndeVoceEsta .
+    Crie um filho para primeiroFilhoDoFilho .
+    A partir desse filho criado, acesse terceiroFilho .
+   -->
   <script>
     let ondeVoceEsta = document.querySelector('#elementoOndeVoceEsta');
     console.log(ondeVoceEsta);
@@ -53,6 +60,20 @@
     terceiroFilho = document.querySelector('#pai').lastElementChild.previousElementSibling;
     console.log(terceiroFilho);
 
+    let irmaoElementoOndeVoceEsta = document.createElement('div');
+    irmaoElementoOndeVoceEsta.id = 'irmaoElementoOndeVoceEsta';
+    document.querySelector('#pai').appendChild(irmaoElementoOndeVoceEsta);
+
+    let filhoElementoOndeVoceEsta = document.createElement('div');
+    filhoElementoOndeVoceEsta.id = 'filhoElementoOndeVoceEsta';
+    document.querySelector('#elementoOndeVoceEsta').appendChild(filhoElementoOndeVoceEsta);
+    
+    let filhoPrimeiroFilhoDoFilho = document.createElement('div');
+    filhoPrimeiroFilhoDoFilho.id = 'filhoPrimeiroFilhoDoFilho';
+    document.querySelector('#primeiroFilhoDoFilho').appendChild(filhoPrimeiroFilhoDoFilho);
+
+    let terceiroFilho2 = document.querySelector('#filhoPrimeiroFilhoDoFilho').parentElement.parentElement.nextElementSibling;
+    console.log(terceiroFilho2);
   </script>
 </body>
 </html>
