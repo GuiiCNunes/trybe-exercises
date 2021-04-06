@@ -86,7 +86,18 @@
       image.src = 'https://picsum.photos/200';
       image.className = 'small-image';
       leftContent.appendChild(image);
-      
+
+      function makeUnordedList(array, parent) {
+        for (let element of array) {
+          let li = document.createElement('li');
+          li.innerText = element;
+          parent.appendChild(li);
+        }
+      }
+
+      let unordedList = document.createElement('ul');
+      makeUnordedList(['um', 'dois', 'tres', 'quatro', 'cinco', 'seis', 'sete', 'oito', 'nove', 'dez'], unordedList);
+      rightContent.appendChild(unordedList);
     </script>
   </body>
 </html>
