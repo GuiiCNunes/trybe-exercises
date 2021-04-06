@@ -74,6 +74,34 @@
 
     let terceiroFilho2 = document.querySelector('#filhoPrimeiroFilhoDoFilho').parentElement.parentElement.nextElementSibling;
     console.log(terceiroFilho2);
+
+    // let pai = document.querySelector('#pai');
+    // let childs = pai.children;
+    // console.log(childs);
+    // for (let element of childs) {
+    //   console.log(element);
+    //   if(element.id != 'elementoOndeVoceEsta' || element.id != 'primeiroFilhoDoFilho') {
+    //     pai.removeChild(element);
+    //   }
+    // }
+
+    remover('pai', ['elementoOndeVoceEsta', 'primeiroFilhoDoFilho']);
+    remover('elementoOndeVoceEsta', ['elementoOndeVoceEsta', 'primeiroFilhoDoFilho']);
+
+    function remover(fatherElement, arrayOfExceptions) {
+      let pai = document.querySelector('#' + fatherElement);
+      let childs = pai.children;
+      for (let element of childs) {
+        let notException = true;
+        for (let exception of arrayOfExceptions) {
+          if(element.id == exception) {
+            notException = false;
+            break;
+          }
+        }
+        if (notException) pai.removeChild(element);
+      }
+    }
   </script>
 </body>
 </html>
