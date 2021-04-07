@@ -32,14 +32,14 @@ const holidays = [24,25,31];
 makeMonth(dezDaysList, fridays, holidays);
 
 // Exec 2
-function makeHolidaysButton(holidaysString) {
+function makeButton(string, id) {
   let button = document.createElement('button');
-  button.innerText = holidaysString;
-  button.id = 'btn-holiday';
+  button.innerText = string;
+  button.id = id;
   document.querySelector('div.buttons-container').appendChild(button);
 }
 
-makeHolidaysButton('Feriados');
+makeButton('Feriados', 'btn-holiday');
 
 // Exec 3
 document.querySelector('button#btn-holiday').addEventListener('click', function() {
@@ -49,5 +49,8 @@ document.querySelector('button#btn-holiday').addEventListener('click', function(
     element.style.backgroundColor = colorElement == 'blue' ? 'rgb(238,238,238)' : 'blue';
   }
 });
-// console.log(document.querySelectorAll('li.holiday'));
-// document.querySelector('div').style.backgroundColor
+
+// Exec 4
+makeButton('Sexta-Feira', 'btn-friday');
+
+
