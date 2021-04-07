@@ -40,3 +40,14 @@ function makeHolidaysButton(holidaysString) {
 }
 
 makeHolidaysButton('Feriados');
+
+// Exec 3
+document.querySelector('button#btn-holiday').addEventListener('click', function() {
+  let elements = document.getElementsByClassName('holiday');
+  for(let element of elements) {
+    let colorElement = element.style.backgroundColor;
+    element.style.backgroundColor = colorElement == 'blue' ? 'rgb(238,238,238)' : 'blue';
+  }
+});
+// console.log(document.querySelectorAll('li.holiday'));
+// document.querySelector('div').style.backgroundColor
