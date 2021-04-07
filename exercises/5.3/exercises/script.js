@@ -67,3 +67,11 @@ document.querySelector('button#btn-friday').addEventListener('click', function()
   }
 });
 
+// Exec 6
+document.querySelector('ul#days').addEventListener('mouseover', function(event) {
+  event.target.style.fontSize = '25px';
+});
+
+document.querySelector('ul#days').addEventListener('mouseout', function(event) {
+  event.target.style.fontSize = '20px';
+});
