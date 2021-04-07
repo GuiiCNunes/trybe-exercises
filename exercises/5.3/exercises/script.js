@@ -30,3 +30,13 @@ const fridays = [4, 11, 18, 25];
 const holidays = [24,25,31];
 
 makeMonth(dezDaysList, fridays, holidays);
+
+// Exec 2
+function makeHolidaysButton(holidaysString) {
+  let button = document.createElement('button');
+  button.innerText = holidaysString;
+  button.id = 'btn-holiday';
+  document.querySelector('div.buttons-container').appendChild(button);
+}
+
+makeHolidaysButton('Feriados');
