@@ -44,7 +44,7 @@ makeButton('Feriados', 'btn-holiday');
 // Exec 3
 document.querySelector('button#btn-holiday').addEventListener('click', function() {
   let elements = document.getElementsByClassName('holiday');
-  for(let element of elements) {
+  for (let element of elements) {
     let colorElement = element.style.backgroundColor;
     element.style.backgroundColor = colorElement == 'blue' ? 'rgb(238,238,238)' : 'blue';
   }
@@ -53,4 +53,17 @@ document.querySelector('button#btn-holiday').addEventListener('click', function(
 // Exec 4
 makeButton('Sexta-Feira', 'btn-friday');
 
+// Exec 5
+function makeNumberElement(element) {
+  return parseInt(element.previousElementSibling.innerText) + 1;
+}
+
+document.querySelector('button#btn-friday').addEventListener('click', function() {
+  let elements = document.getElementsByClassName('friday');
+  for (let element of elements) {
+    let text = element.innerText;
+    let newText = 'SEXTA-FEIRA!!11!1';
+    element.innerText = text !== newText ? newText : makeNumberElement(element);
+  }
+});
 
