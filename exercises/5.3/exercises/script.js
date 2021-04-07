@@ -75,3 +75,12 @@ document.querySelector('ul#days').addEventListener('mouseover', function(event) 
 document.querySelector('ul#days').addEventListener('mouseout', function(event) {
   event.target.style.fontSize = '20px';
 });
+
+// Exec 7
+function makeTask(string) {
+  let spanTask = document.createElement('span');
+  spanTask.innerText = string;
+  document.querySelector('div.my-tasks').appendChild(spanTask);
+}
+
+makeTask('cozinhar');
