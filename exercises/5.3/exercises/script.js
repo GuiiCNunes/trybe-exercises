@@ -94,3 +94,17 @@ function makeSubtitle(color) {
 }
 
 makeSubtitle('green');
+
+// Exec 9
+
+makeTask('pescar');
+makeSubtitle('blue');
+makeTask('caçar');
+makeSubtitle('red');
+
+document.querySelector('div.my-tasks').addEventListener('click', function(event) {
+  if (event.target.classList.contains('task')) {
+    if (event.target.classList.contains('selected')) event.target.classList.remove('selected');
+    else event.target.classList.add('selected');
+  }
+});
