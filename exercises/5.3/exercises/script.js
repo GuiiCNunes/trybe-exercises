@@ -116,3 +116,30 @@ document.querySelector('ul#days').addEventListener('click', function(event) {
   if (event.target.style.color !== colorSelected) event.target.style.color = colorSelected;
   else event.target.style.color = 'rgb(119,119,119)';
 });
+
+// Bonus
+// Font https://css-tricks.com/snippets/javascript/random-hex-color/
+
+function verifyAndAddContent(content) {
+  if(content === '' || content === ' ') alert('Erro: Adicione um conteúdo ao input');
+  else {
+    let randomColor = Math.floor(Math.random()*16777215).toString(16);
+    makeTask(content);
+    makeSubtitle('#' + randomColor);
+    document.querySelector('#task-input').value = '';
+  }
+}
+
+document.querySelector('#btn-add').addEventListener('click', function() {
+  verifyAndAddContent(document.querySelector('#task-input').value);
+});
+
+document.querySelector('#task-input').addEventListener("keydown", function(event) {
+  switch (event.key) {
+    case "Enter":
+      verifyAndAddContent(document.querySelector('#task-input').value);
+      break;
+    default:
+      return;
+  }
+})
