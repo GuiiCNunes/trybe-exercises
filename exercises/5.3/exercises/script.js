@@ -84,3 +84,13 @@ function makeTask(string) {
 }
 
 makeTask('cozinhar');
+
+// Exec 8
+function makeSubtitle(color) {
+  let divColor = document.createElement('div');
+  divColor.style.backgroundColor = color;
+  divColor.className = 'task';
+  document.querySelector('div.my-tasks').appendChild(divColor);
+}
+
+makeSubtitle('green');
