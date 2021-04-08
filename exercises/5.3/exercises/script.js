@@ -46,7 +46,7 @@ document.querySelector('button#btn-holiday').addEventListener('click', function(
   let elements = document.getElementsByClassName('holiday');
   for (let element of elements) {
     let colorElement = element.style.backgroundColor;
-    element.style.backgroundColor = colorElement == 'blue' ? 'rgb(238,238,238)' : 'blue';
+    element.style.backgroundColor = colorElement == 'magenta' ? 'rgb(238,238,238)' : 'magenta';
   }
 });
 
@@ -107,4 +107,12 @@ document.querySelector('div.my-tasks').addEventListener('click', function(event)
     if (event.target.classList.contains('selected')) event.target.classList.remove('selected');
     else event.target.classList.add('selected');
   }
+});
+
+// Exec 10
+
+document.querySelector('ul#days').addEventListener('click', function(event) {
+  let colorSelected = document.querySelector('div.selected').style.backgroundColor;
+  if (event.target.style.color !== colorSelected) event.target.style.color = colorSelected;
+  else event.target.style.color = 'rgb(119,119,119)';
 });
