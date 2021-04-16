@@ -8,7 +8,24 @@
   <title>Formulário de currículo</title>
 </head>
 <body>
-  
+  <main>
+    <header><h1>Formulário de Currículo</h1></header>
+    <article>
+      <form action="" method="GET">
+        <fieldset>
+          <label>Nome: <input type="text" name="full-name" id="input-name" maxlength="40" required></label>
+          <label>E-mail: <input type="email" name="email" id="email" required maxlength="50"></label>
+          <label>CPF: <input type="text" name="cpf" id="cpf" pattern="[\d]{3}.?[\d]{3}.?[\d]{3}-?[\d]{2}" required></label>
+          <label>Endereço: <input type="text" name="address" id="address" required maxlength="200"></label>
+          <label>Cidade: <input type="text" name="city" id="city" required maxlength="28"></label>
+          <label>Estado: <select name="state" id="state" required>
+          </select></label>
+          <label><input type="radio" name="home" id="home" value="house" required>Casa</label>
+          <label><input type="radio" name="home" id="home" value="apartment" required>Apartamento</label>
+        </fieldset>
+      </form>
+    </article>
+  </main>
   <script src="script.js"></script>
 </body>
 </html>
