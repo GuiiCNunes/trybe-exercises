@@ -41,3 +41,16 @@
 - `autofocus` : especifica que um campo de entrada deve obter foco automaticamente quando a página é carregada;
 - `height` e `width` : especificam a altura e a largura de um elemento;
 - `autocomplete` : especifica se um campo de entrada deve ter o preenchimento automático ativado ou desativado.
+
+## Links
+
+- [Os 34 temas do CliftonStrengths explicam seu DNA de talentos](https://www.gallup.com/cliftonstrengths/pt/253724/34-temas-cliftonstrengths.aspx)
+- [<input type="search">](https://www.w3schools.com/tags/att_input_type_search.asp)
+- [HTML <input> pattern Attribute](https://www.w3schools.com/tags/att_input_pattern.asp)
+- [HTML <input> step Attribute](https://www.w3schools.com/tags/att_input_step.asp)
+- [HTML <input type="button">](https://www.w3schools.com/tags/att_input_type_button.asp)
+- [cardview material design](https://www.google.com/search?q=cardview+material+design&oq=cardview+material+de&aqs=chrome.1.69i57j0j0i22i30l2j0i10i22i30j0i22i30l5.4591j0j7&sourceid=chrome&ie=UTF-8)
+- [Como criar um formulário de registro?](https://www.w3schools.com/howto/howto_css_register_form.asp)
+- [Guia para HTML forms](https://www.freecodecamp.org/news/a-step-by-step-guide-to-getting-started-with-html-forms-7f77ae4522b5/)
+- [Referência para Input Types HTML](https://www.w3schools.com/html/html_form_input_types.asp)
+- [Referência para Atributos HTML](https://www.w3schools.com/html/html_form_attributes.asp)
