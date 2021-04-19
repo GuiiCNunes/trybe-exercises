@@ -22,3 +22,24 @@ display: flex;
   - `wrap` quebra, conforme o eixo utilizado.
   - `wrap-reverse` quebra, conforme o eixo utilizado no sentido inverso.
 - `flex-flow` : agrupamento do `direction` e `wrap`, nessa ordem.
+- `justify-content`: Alinha os itens conforme o eixo principal.
+  - `flex-start` no começo do eixo.
+  - `flex-end` no final do eixo.
+  - `center` no centro do eixo.
+  - `space-between` com espaçamento igual entre os itens.
+  - `space-around` com espaçamento das bordas menores.
+  - `space-evenly` com espaçamentos iguais.
+- `align-items`: Alinha os itens conforme o eixo transversal.
+  - `stretch` padrão, alonga os elementos igualmente para caber.
+  - `flex-start` alinha os itens no inicio do eixo.
+  - `flex-end` alinha os itens ao final do eixo.
+  - `center` alinha os itens no centro do eixo.
+  - `baseline` alinha os elementos seguindo o texto no interior deles. [Para ficar mais claro](/pract3.html)
+- `align-content`: alinha as linhas relação ao eixo transversal, **Só funciona com mais de uma linha**
+  - `stretch` padrão, alonga as linhas de itens conforme o eixo transversal.
+  - `flex-start` alinha todas as linhas de itens no começo do eixo.
+  - `flex-end` alinha todas as linhas de itens no final do eixo.
+  - `center` alinha as linhas no centro.
+  - `space-between` cria espaço entre as linhas, com a primeira no topo e a ultima no *bottom*.
+  - `space-around` cria espaços maiores entre as linhas do que nas extremidades.
+  - `space-evenly` com espaçamentos iguais.
