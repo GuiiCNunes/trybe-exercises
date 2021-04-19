@@ -10,7 +10,7 @@ display: flex;
 
 - Importante diferenciar os eixos *Main Axis* (eixo principal) e *Cross Axis* (eixo transversal)
 
-![css_flexbox_axes-ae037e975930d45a18d1ef4417501d82.png]
+![](css_flexbox_axes-ae037e975930d45a18d1ef4417501d82.png)
 
 - `flex-direction`: Define o eixo principal (horizontal, vertical, inverso)
   - `row` padrão, horizontal, esquerda para direita.
