@@ -8,12 +8,16 @@
 display: flex;
 ```
 
-- `flex-direction`: Define os eixos (horizontal, vertical, inverso)
+- Importante diferenciar os eixos *Main Axis* (eixo principal) e *Cross Axis* (eixo transversal)
+
+![css_flexbox_axes-ae037e975930d45a18d1ef4417501d82.png]
+
+- `flex-direction`: Define o eixo principal (horizontal, vertical, inverso)
   - `row` padrão, horizontal, esquerda para direita.
   - `row-reverse` horizontal, direita para esquerda.
   - `column` vertical, de cima para baixo.
   - `column` vertical, de baixo para cima.
-- `flex-wrap`: Define se os itens devem quebrar a linha ou não.
+- `flex-wrap`: Define se os itens devem quebrar a linha ou não, seguindo o eixo transversal.
   - `nowrap` padrão, não quebra.
   - `wrap` quebra, conforme o eixo utilizado.
   - `wrap-reverse` quebra, conforme o eixo utilizado no sentido inverso.
