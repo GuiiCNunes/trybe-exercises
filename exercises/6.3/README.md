@@ -34,7 +34,7 @@ display: flex;
   - `flex-start` alinha os itens no inicio do eixo.
   - `flex-end` alinha os itens ao final do eixo.
   - `center` alinha os itens no centro do eixo.
-  - `baseline` alinha os elementos seguindo o texto no interior deles. [Para ficar mais claro](/pract3.html)
+  - `baseline` alinha os elementos seguindo o texto no interior deles. [Para ficar mais claro](pract3.html)
 - `align-content`: alinha as linhas relação ao eixo transversal, **Só funciona com mais de uma linha**
   - `stretch` padrão, alonga as linhas de itens conforme o eixo transversal.
   - `flex-start` alinha todas as linhas de itens no começo do eixo.
