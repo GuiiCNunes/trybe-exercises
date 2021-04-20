@@ -6,3 +6,4 @@
 
 - `align-self`: similar ao `align-items`, mas só afeta o elemento possui o atributo.
   - Usado com: `flex-start` , `flex-end` , `stretch` , `baseline` , `center` 
+- `order`: Ordena elementos, em ordem crescente. *Aceita números negativos.*
