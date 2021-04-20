@@ -43,3 +43,18 @@ display: flex;
   - `space-between` cria espaço entre as linhas, com a primeira no topo e a ultima no *bottom*.
   - `space-around` cria espaços maiores entre as linhas do que nas extremidades.
   - `space-evenly` com espaçamentos iguais.
+
+### LINKS
+
+- [Atalhos VSCode HTML - Emmet](https://docs.emmet.io/cheat-sheet/)
+- [Guia Flex Box - CSS Tricks](https://css-tricks.com/snippets/css/a-guide-to-flexbox/)
+- [Lista Unicode](https://en.wikipedia.org/wiki/List_of_Unicode_characters)
+- [Guia FlexBox - Origamid](https://origamid.com/projetos/flexbox-guia-completo/)
+- [Flexbox Froggy](http://flexboxfroggy.com/#pt-br)
+- [W3Schools CSS Flexbox](https://www.w3schools.com/css/css3_flexbox.asp)
+- [CSS Tricks: A Complete Guide To Flexbox](https://css-tricks.com/snippets/css/a-guide-to-flexbox/)
+- [Exercício: Flexbox Froggy](https://flexboxfroggy.com/)
+- [Exercício: Flexbox Defense](http://www.flexboxdefense.com/)
+- [Playground: The-echoplex](https://the-echoplex.net/flexyboxes/)
+- [Playground: Properties for the flex container](https://codepen.io/enxaneta/full/adLPwv)
+- [Playground: Scotch.io](https://demos.scotch.io/visual-guide-to-css3-flexbox-flexbox-playground/demos/)
