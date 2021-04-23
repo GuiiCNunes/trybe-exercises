@@ -1,6 +1,6 @@
 body {
   font-size: 1.2em;
-  margin: auto 18px;
+  /* margin: auto 18px; */
 }
 h1 {
   font-size: 1.5em;
@@ -17,3 +17,42 @@ img {
 figure {
   margin: 0;
 }
+
+@media screen and (min-width: 800px) {
+  body {
+    background-color: burlywood;
+    font-size: 1em;
+  }
+
+  #figures {
+    margin: 20px;
+    width: 80%;
+    display: flex;
+    flex-wrap: wrap;    
+  }
+
+  figure {
+    width: 45%;
+    padding: 15px;
+  }
+}
+
+@media screen and (min-width: 1300px) {
+  body {
+    background-color:chartreuse;
+    font-size: 0.75em;
+    max-width: 1300px;
+  }
+
+  #figures {
+    margin: auto;
+    width: 80%;
+    display: flex;
+    flex-wrap: wrap;    
+  }
+
+  figure {
+    width: 45%;
+  }
+}
+
