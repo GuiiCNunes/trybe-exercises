@@ -50,4 +50,4 @@ Entre os parênteses vai a mensagem do erro.
 - [Test Driven Development (TDD): Example Walkthrough](https://technologyconversations.com/2013/12/20/test-driven-development-tdd-example-walkthrough/)
 - [Test Driven Development - Wikipedia](https://en.wikipedia.org/wiki/Test-driven_development)
 - [Apresentação da ThoughtWorks sobre TDD](https://agileindia.org/uploads/downloads/TDD.pdf)
-
+- [Sort no braço](https://khan4019.github.io/front-end-Interview-Questions/sort.html) **Recomedação Panta**
