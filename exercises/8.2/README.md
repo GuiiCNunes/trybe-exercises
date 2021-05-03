@@ -48,3 +48,4 @@ Ordenar um *array* com um critério específico.
 Para ordenar de forma numérica em ordem crescente, passe como parâmetro a função: `(a, b) => a - b`
 [Documentação](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Array/sort).
 [Exemplo do CodePen](https://codepen.io/pen/?template=gOMYaXy).
+**Altera o Array**;
