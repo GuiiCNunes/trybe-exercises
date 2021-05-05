@@ -17,3 +17,7 @@ array.reduce(function, firstResult);
 ## Links
 
 - [Artigo com gifs explicando map, filter e reduce](https://jstutorial.medium.com/map-filter-and-reduce-animated-7fe391a35a47)
+- [Documentação](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce)
+- [Página do MDN sobre reduce](https://developer.cdn.mozilla.net/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce)
+- [Simplify your JavaScript – Use .map() , .reduce() , and .filter()](https://medium.com/poka-techblog/simplify-your-javascript-use-map-reduce-and-filter-bd02c593cc2d)
+- [Video sobre .map .reduce e .filter](https://www.youtube.com/watch?v=D_MExaVe95w)
