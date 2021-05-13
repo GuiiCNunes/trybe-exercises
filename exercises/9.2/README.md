@@ -48,3 +48,15 @@ Transforma qualquer função em uma *promise*. Para isso basta colocar *async* a
 ### await
 
 **Só pode ser utilizado dentro de uma função *async***. Faz com que a função espere uma resposta para continuar a execução. Basta declarar um *await* antes do que se deseja esperar o retorno, como o *async*.
+
+## Links
+
+- [Funções assíncronas](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Statements/async_function)
+- [Promise.resolve()](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Promise/resolve)
+- [Body.json()](https://developer.mozilla.org/pt-BR/docs/Web/API/Body/json)
+- [Promise](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Promise)
+- [Async JavaScript: From Callbacks, to Promises, to Async/Await](https://ui.dev/async-javascript-from-callbacks-to-promises-to-async-await/)
+- [A simple guide to promises](https://codeburst.io/a-simple-guide-to-es6-promises-d71bacd2e13a)
+- [Asynchronous JavaScript: From Callback Hell to Async and Await](https://www.toptal.com/javascript/asynchronous-javascript-async-await-tutorial)
+- [An Overview of JavaScript Promises](https://www.sitepoint.com/overview-javascript-promises/)
+- [fetch() - Working With Data & APIs in JavaScript](https://www.youtube.com/watch?v=tc8DU14qX6I)
