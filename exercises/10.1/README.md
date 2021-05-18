@@ -22,6 +22,8 @@ Para executar o *Jest* é necessário dar um: `npm init -y` em uma pasta. Assim 
 Agora é necessário editar o valor da chave *test*, que está dentro de *scripts*. Seu valor deve ir de `"test": "echo \"Error: no test specified\" && exit 1"` para `"test": "jest"`.
 Depois disso é só rodar o comando de instalação do *Jest*: `npm install --save-dev jest`
 
+**O `--save-dev` faz com aque a dependências salvas com esse sinal não vão para a produção, ficando apenas no desenvolvimento.**
+
 Explicações do que foi baixado e/ou criado:
 
 - *package.json* é onde listamos as dependências e versões (entre outras informações da aplicação).
