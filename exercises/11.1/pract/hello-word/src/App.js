@@ -1,8 +1,8 @@
-import Component from './Component.js';
+import ItsMe from './Component.js';
 import './App.css';
 
 function App() {
-  return <Component/>;
+  return <ItsMe/>;
 }
 
 export default App;
