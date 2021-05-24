@@ -79,3 +79,6 @@ class ReactClass extends React.Component {
 - [Criando um app com consumo de API local utilizando React](https://medium.com/better-programming/creating-a-simple-app-with-react-js-f6aa88998952)
 - [Guia completo de React](https://tableless.com.br/guia-completo-react-ecossistema/)
 - [Pesquisa anual do StackOverflow sobre frameworks mais amados, requisitados e odiados](https://insights.stackoverflow.com/survey/2019#technology-_-most-loved-dreaded-and-wanted-web-frameworks)
+
+- [Exercício 3](https://www.freecodecamp.org/learn/front-end-libraries/react/)
+- [Exercício 4](https://codepen.io/nathansebhastian/pen/qgOJKe)
