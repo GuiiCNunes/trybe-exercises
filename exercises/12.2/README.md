@@ -123,3 +123,7 @@ export default App
 ## Links
 
 - [React Developer Tools](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi)
+- [Formulários em React](https://pt-br.reactjs.org/docs/forms.html)
+- [Mais conteúdo sobre event handlers](https://medium.com/javascript-in-plain-english/declaring-event-handlers-d63b17e170d9)
+- [Referência sobre como é o funcionamento por baixo dos panos dos eventos em React](https://pt-br.reactjs.org/docs/events.html)
+- [Vídeo que ensina a criar um formulário em React](https://www.youtube.com/watch?v=Nd69RXF41kA)
