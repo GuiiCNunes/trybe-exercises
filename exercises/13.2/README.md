@@ -67,3 +67,9 @@ Pode ser feito destas formas:
 Lembrando que a aplicação (ou seja, o return do *App.js*) **deve estar encapsulado** dentro de um `<BrowserRouter> </BrowserRouter>` e os elementos `BrowserRouter`e `Route` **devem ser importados** da lib `react-router-dom`.
 
 ### Link
+
+`<Link to="/caminho-url">Texto do Link</Link>` é quase igual ao *anchor* do Html, porém não necessita recarregar toda a página, inegrando assim a *single page application*. Lembrando de importá-lo da lib `react-router-dom`.
+O `Link` aceita qualquer coisa (imagem,texto, outro componente,...) como filho, se clicar no filho, vai para a url dentro do `to=""`.
+
+
+
