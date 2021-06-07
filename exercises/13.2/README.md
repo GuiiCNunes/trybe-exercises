@@ -104,6 +104,8 @@ Utilizado para encapsular um conjunto de rotas, via `Route`. Cada a URL da aplic
 Assim apenas um componente é renderizado, este sendo o primeiro que for encontrado correspondência. Sem ele, mais de um componente poderia ser renderizado.
 Só pode possuir como filhos componentes `Route` ou `Redirect`.
 
+O `switch` pode ser utilizado como o bloco de código que será alterado com a entrada no link, como se fosse o conteúdo de uma página ao navegar pelo *header*. Ou seja, o *header* se mantem e o conteúdo/*switch* é alterado.
+
 ### Componente Redirect
 
 Utilizado para *redirecionar* o usuário entre as páginas. Ao contrário do `Link`, não depende de interação de quem usa, ele acontece de forma automática. Exemplo: Usuário não logado tentando entrar em área restrita, ele é **automaticamente redirecionado a tela de login**.
