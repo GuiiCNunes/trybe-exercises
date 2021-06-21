@@ -15,3 +15,11 @@ test('Testando um componente, caso o email seja inválido.', () => {
   const isValid = getByText('Email Inválido');
   expect(isValid).toBeInTheDocument();
 });
+
+test('Testa se a mensagem aparece quando não houver email.', () => {
+  const { getAllByText, queryByText } = render(<ValidEmail email='' />);
+  const isValid = queryByText('Email Inválido');
+  // const isValid = getAllByText('Email Valido') || getAllByText('Email Inválido');
+  // const isInvalid = getByText('Email Inválido');
+  expect(isValid).not.toBeInTheDocument();
+});
