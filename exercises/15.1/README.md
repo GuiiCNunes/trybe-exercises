@@ -24,6 +24,10 @@ A função `render(<Componente />)` renderiza o componente passado como parâmet
 
 O `render()` aceita qualquer componente, não precisando ser renderizada a aplicação inteira. Inclusive, **podem ser passadas props dentro do elemento passado como parâmetro**.
 
+- `get...` trava ao não encontrar os elementos.
+- `query...` prossegue os testes mesmo não encontrando o elemento.
+- `find...` para elementos assíncronos.
+
 ### fireEvent
 
 Simula a interação dos usuários. [Documentação](https://testing-library.com/docs/dom-testing-library/api-events/)
@@ -42,4 +46,11 @@ Simula a interação dos usuários. [Documentação](https://testing-library.com
 - [Cheatsheet dom-testing-library](https://testing-library.com/docs/dom-testing-library/cheatsheet/)
 - [jest-dom](https://github.com/testing-library/jest-dom)
 - [Lista de Queries](https://testing-library.com/docs/dom-testing-library/api-queries)
+
+- [Confident React - Webinar de Kent C. Dodds apresentando a React Testing Library e comparando-a com o Enzyme](https://applitools.com/blog/react-kent-c-dodds-frontend-visual-testing?utm_referrer=https://github.com/frontendbr/forum/issues/1501)
+- [Documentação do React - Testing Overview](https://reactjs.org/docs/testing.html)
+- [Code Sandbox - React Testing Library Examples](https://codesandbox.io/s/github/kentcdodds/react-testing-library-examples)
+- [GitHub da React Testing Library](https://github.com/testing-library/react-testing-library)
+- [My experience moving from Enzyme to react-testing-library](https://medium.com/@boyney123/my-experience-moving-from-enzyme-to-react-testing-library-5ac65d992ce)
+- [FAQ da react-testing-library](https://testing-library.com/docs/react-testing-library/faq)
 
