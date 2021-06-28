@@ -47,6 +47,8 @@ const action = { type: 'LOGIN' };
 
 Exercício e mais informações [aqui](https://www.freecodecamp.org/learn/front-end-libraries/redux/define-a-redux-action).
 
+- ***Action Creator***: é responsabilidade dele enviar a *action* para o *Redux store*. Ele nada mais é que uma função que retorna a *action* (ou seja, o objeto).
+
 ### Dispatch
 
 É uma função que envia uma action para o *reducer*, atualizando a *store*. Exemplo:
@@ -55,7 +57,14 @@ Exercício e mais informações [aqui](https://www.freecodecamp.org/learn/front-
 store.dispatch(setUser())
 ```
 
-A função `setUser()`, no caso, retorna um objeto contendo dados do usuário.
+A função `setUser()`, no caso, retorna um objeto contendo dados do usuário. **Ela é um *Action Creator***.
+
+### Reducers
+
+É apenas uma função que recebe um `state` e uma `action` como parâmetros e retorna um novo `state`. Servindo para alterar a *store*. Ele **nunca deve chamar um endpoint de uma API**.
+O `state`deve ser *read-only*, ou seja, ele sempre deve retornar uma nova cópia do `state` e nunca modificar o `state` diretamente.
+
+Exercício e mais informações [aqui](https://www.freecodecamp.org/learn/front-end-libraries/redux/handle-an-action-in-the-store).
 
 ### Combinando Reducers
 
@@ -87,6 +96,28 @@ const store = createStore(reducerCombinado);
 ```
 
 Documentação sobre a função [aqui](https://redux.js.org/api/combinereducers/).
+
+### Listeners
+
+É possível atribui uma *callback* que será executada toda vez que a *store* for alterada. Para isso, utiliza-se a função `store.subscribe()`, passando a *callback* a ser executada como parâmetro.
+
+Documentação sobre a função [aqui](https://www.freecodecamp.org/learn/front-end-libraries/redux/register-a-store-listener)
+
+## Exercísios do CodeCamp
+
+01. [Definindo um action creator](https://www.freecodecamp.org/learn/front-end-libraries/redux/define-an-action-creator)
+02. [Enviando uma action para um reducer](https://www.freecodecamp.org/learn/front-end-libraries/redux/dispatch-an-action-event)
+03. [Criando um Reducer para receber e manipular uma action](https://www.freecodecamp.org/learn/front-end-libraries/redux/handle-an-action-in-the-store)
+04. [Criando um reducer que aceita actions de tipos distintos](https://www.freecodecamp.org/learn/front-end-libraries/redux/use-a-switch-statement-to-handle-multiple-actions)
+05. [Usando const para os action types](https://www.freecodecamp.org/learn/front-end-libraries/redux/use-const-for-action-types/)
+06. [Registrando um listener para no store](https://www.freecodecamp.org/learn/front-end-libraries/redux/register-a-store-listener)
+07. [Combinando múltiplos reducers](https://www.freecodecamp.org/learn/front-end-libraries/redux/combine-multiple-reducers)
+08. [Enviando dados através das actions](https://www.freecodecamp.org/learn/front-end-libraries/redux/send-action-data-to-the-store)
+09. [Criando um contador com Redux]https://www.freecodecamp.org/learn/front-end-libraries/redux/write-a-counter-with-redux()
+10. [Por que nunca modificar um state ?](https://www.freecodecamp.org/learn/front-end-libraries/redux/never-mutate-state)
+11. [Utilizando o spread operator como ferramenta para manter a imutabilidade do state](https://www.freecodecamp.org/learn/front-end-libraries/redux/use-the-spread-operator-on-arrays)
+12. [Removendo itens de um array preservando a imutabilidade](https://www.freecodecamp.org/learn/front-end-libraries/redux/remove-an-item-from-an-array)
+13. [Trabalhando com Object.assign](https://www.freecodecamp.org/learn/front-end-libraries/redux/copy-an-object-with-object-assign)
 
 ## Links
 
