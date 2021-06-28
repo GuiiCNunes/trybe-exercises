@@ -35,6 +35,8 @@ Para pegar algum valor de dentro da *store*, utiliza-se o comando:
 const currentState = store.getState();
 ```
 
+Caso o *state* do *store* possua mais de uma chave, a sintaxe fica: `store.aquelaKey.getState()`.
+
 Exercício e mais informações [aqui](https://www.freecodecamp.org/learn/front-end-libraries/redux/get-state-from-the-redux-store).
 
 ### Definir uma action
