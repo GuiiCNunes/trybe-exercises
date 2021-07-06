@@ -46,3 +46,10 @@ const renderWithRedux = (
 **Outro ponto de atenção**, é que o `provider` deve estar no `index.js`, para poder encapsular o `App.js` em sua totalidade. Assim garantindo que a `store` é controlável.
 
 ## Links
+
+- [fetch-mock-jest](https://www.npmjs.com/package/fetch-mock-jest)
+
+- [Jest-RTL Redux](https://react-testing-examples.com/jest-rtl/redux/)
+- [Writing Tests](https://redux.js.org/recipes/writing-tests)
+- [React Redux Example](https://testing-library.com/docs/example-react-redux)
+- [Testing React And Redux Apps With Jest](https://scotch.io/tutorials/testing-react-and-redux-apps-with-jest)
