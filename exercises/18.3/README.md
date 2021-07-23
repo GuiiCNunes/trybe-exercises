@@ -182,6 +182,14 @@ export default App;
 
 **Um *hook* personalizado, por convenção, recebe um nome que comece com a palavra `use`.**
 
+### Hooks criados pela comunidade
+
+A comunidade cria *hooks* para facilitar o desenvolvimento. Como exemplos temos:
+
+- Hooks de Redux
+- Hooks de React Route Dom
+- Entre muitos outros
+
 ## Links
 
 - [React Hooks: How to use useEffect()](https://medium.com/javascript-in-plain-english/react-hooks-how-to-use-useeffect-ecea3e90d84f)
