@@ -127,4 +127,60 @@ brew uninstall mysql
 brew remove mysql
 ```
 
+### Comandos úteis
+
+- `SHOW DATABASES;` : Mostra os bancos de dados.
+- Indicar qual banco está utilizando:
+
+```
+USE nome_do_banco_de_dados_que_quero_conectar;
+-- EX: USE trybe;
+
+-- Outra forma é pela orientação banco.tabela
+SELECT * FROM banco_de_dados.tabela;
+-- EX: SELECT * FROM trybe.students;
+```
+
+- `SHOW TABLES;` : Mostra as tabelas presentes naquele banco.
+
+- Visualiza a estrutura da tabela:
+
+```
+DESCRIBE nome_da_tabela;
+-- EX: DESCRIBE students;
+```
+
+- Cria um banco:
+
+```
+CREATE DATABASE nome_do_banco_de_dados;
+-- EX: CREATE DATABASE trybe;
+```
+
+### MySQL Workbench - instalação
+
+Interface gráfica que ajuda no desenvolvimento das *queries* e visualização do banco.
+
+1. [Download](https://downloads.mysql.com/archives/workbench)
+2. Na pasta onde foi baixado, rode:
+
+```
+sudo apt install ./nome-do-arquivo
+#ex no Ubuntu 20.04: sudo apt install ./mysql-workbench-community_8.0.21-1ubuntu20.04_amd64.deb
+```
+
+### Relacionamentos
+
+- Um para um (1:1): Uma entidade se relaciona uma única vez com outra. Por exemplo, Uma entidade Empregado possui apenas uma relação com a entidade Pagamento, e vice e versa. Um empregado tem um pagamento e um pagamento tem um empregado.
+
+- Um para muitos (1:N): Uma entidade pode possuir **N** relações com outra. Por exemplo, uma entidade Livro se relaciona com uma entidade Categoria, mas uma entidade Categoria se relaciona com mais de uma entidade Livro. Um livro tem uma categoria, mas uma categoria tem vários livros.
+
+- Muitos para Muitos (N:N): Muitas entidades se relacionam com muitas outras. Por exmeplo, muitas entidades Autor se relacionam com muitas entidades Filme. Ou seja, um ator faz vários filmes, na mesma medida que um filme possui vários atores. Precisa existir uma tabela de junção, que, basicamente, simplifica essa relação para 2 relações um para muitos ligada por ela.
+
 ## Links
+
+- [Diferença entre dados, informação e conhecimento](https://www.estrategiaconcursos.com.br/blog/dados-informacao-conhecimento-uma-apresentacao)
+- [Importância dos bancos de dados na sociedade](https://tecnoblog.net/245120/banco-de-dados-importancia)
+- [O que é um banco de dados](https://www.homehost.com.br/blog/tutoriais/mysql/o-que-e-um-banco-de-dados)
+- [Explicação e exercícios sobre tipos de chaves](https://www.blogson.com.br/chave-primaria-estrangeira-e-composta-no-mysql)
+- [SQL vs NoSQL, como são diferentes?](https://www.treinaweb.com.br/blog/sql-vs-nosql-qual-usar)
