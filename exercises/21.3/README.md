@@ -236,6 +236,118 @@ SELECT GetFullName(51);
 * *Procedures* podem alterar o estado global.
 * *Procedures* permitem tratar exceções `try/catch`.
 
+### TRIGGERS
+
+*Triggers* monitoram se o estado global foi alterado (`INSERT`, `UPDATE`, `DELETE`), caso tenham sido, dispara a ação configurada nele. Podendo ser configurado para:
+
+- `BEFORE`: antes da ação ser executada.
+- `AFTER`: depois da ação ter sido executada.
+
+*TRIGGERS* possuem variáveis próprias, sendo:
+
+- `OLD`: valores presentes na linha antes da operação.
+- `NEW`: valores presentes na linha após da operação.
+
+| Operação | OLD | NEW |
+| --- | --- | --- |
+| INSERT | Não | Sim |
+| UPDATE | Sim | Sim |
+| DELETE | Sim | Não |
+
+**Sintaxe**:
+
+```
+DELIMITER $$
+
+CREATE TRIGGER nome_do_trigger
+[BEFORE | AFTER] [INSERT | UPDATE | DELETE] ON tabela
+FOR EACH ROW
+BEGIN
+    -- o código SQL entra aqui
+END $$
+
+DELIMITER $$ ;
+```
+
+**Exemplos**:
+
+* Tabela:
+```
+CREATE DATABASE IF NOT EXISTS rede_social;
+
+USE rede_social;
+
+CREATE TABLE perfil(
+    perfil_id INT PRIMARY KEY auto_increment,
+    saldo DECIMAL(10, 2) NOT NULL DEFAULT 0,
+    ultima_atualizacao DATETIME,
+    acao VARCHAR(50),
+    ativo BOOLEAN DEFAULT 1
+) engine = InnoDB;
+
+CREATE TABLE log_perfil(
+    acao_id INT PRIMARY KEY AUTO_INCREMENT,
+    acao VARCHAR(300),
+    data_acao DATE
+) engine = InnoDB;
+```
+
+* INSERT:
+
+```
+USE rede_social;
+
+DELIMITER $$
+CREATE TRIGGER trigger_perfil_insert
+    BEFORE INSERT ON perfil
+    FOR EACH ROW
+BEGIN
+    SET NEW.ultima_atualizacao = NOW(),
+        NEW.acao = 'INSERT';
+END $$
+DELIMITER ;
+```
+
+* UPDATE:
+```
+USE rede_social;
+
+DELIMITER $$
+CREATE TRIGGER trigger_perfil_update
+    BEFORE UPDATE ON perfil
+    FOR EACH ROW
+BEGIN
+    SET NEW.ultima_atualizacao = NOW(),
+        NEW.acao = 'UPDATE';
+END $$
+DELIMITER ;
+```
+
+* DELETE
+```
+USE rede_social;
+
+DELIMITER $$
+CREATE TRIGGER trigger_perfil_delete
+    AFTER DELETE ON perfil
+    FOR EACH ROW
+BEGIN
+    INSERT INTO log_perfil(acao, data_acao)
+    VALUES ('exclusão', NOW());
+END $$
+DELIMITER ;
+```
+
 ## Links
 
 - [Conceito de Programação DRY: Don't repeat yourself](https://pt.wikipedia.org/wiki/Don%27t_repeat_yourself)
+
+- [Diferenças entre JOIN e SUBQUERY](https://www.essentialsql.com/what-is-the-difference-between-a-join-and-subquery)
+- [Como utilizar subqueries](https://qhmit.com/mysql/examples/mysql_subquery.cfm)
+- [Como utilizar Stored Procedures](https://qhmit.com/mysql/tutorial/mysql_stored_procedures.cfm)
+- [Tutorial sobre Stored Procedures do MySQL Tutorial](https://www.mysqltutorial.org/getting-started-with-mysql-stored-procedures.aspx)
+- [Vantagens e desvantagens das Stored Procedures](https://www.devmedia.com.br/stored-procedures-no-mysql/29030)
+- [Amadurecendo com Separation Of Concerns](https://www.devmedia.com.br/amadurecendo-com-separation-of-concerns/18699)
+- [MySQL Delimiter](https://www.mysqltutorial.org/mysql-stored-procedure/mysql-delimiter/)
+- [Como declarar variáveis em MySQL](https://stackoverflow.com/questions/11754781/how-to-declare-a-variable-in-mysql)
+- [Tipo de dados em MySQL](https://www.mysqltutorial.org/mysql-data-types.aspx)
