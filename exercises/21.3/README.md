@@ -52,6 +52,12 @@ DELIMITER ; -- muda o delimitador de volta para ; - o espaço entre DELIMITER e 
   * Local Variables;
   * Server System Variables.
 
+**OBS**.: Outro jeito é com:
+```
+DECLARE variable_name datatype(size) [DEFAULT default_value];
+```
+[Fonte](https://www.mysqltutorial.org/variables-in-stored-procedures.aspx)
+
 * Tipos de dados:
   - *Strings*
     * `VARCHAR` : Uma string não binária de comprimento variável;
