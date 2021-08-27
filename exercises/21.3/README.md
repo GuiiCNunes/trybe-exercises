@@ -272,7 +272,7 @@ BEGIN
     -- o código SQL entra aqui
 END $$
 
-DELIMITER $$ ;
+DELIMITER ;
 ```
 
 **Exemplos**:
