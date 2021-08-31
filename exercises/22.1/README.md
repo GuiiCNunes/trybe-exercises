@@ -54,6 +54,97 @@ Para ficar mais detalhado, o nome das tabelas, suas chaves primárias e estrange
 
 ### Criando um banco de dados para conter suas tabelas
 
+```
+-- Cria um banco de dados com o nome especificado.
+CREATE DATABASE nome_do_banco_de_dados;
+
+-- Sinônimo de CREATE DATABASE, também cria um banco de dados.
+CREATE SCHEMA nome_do_banco_de_dados;
+
+-- Verifica se o banco de dados ainda não existe.
+-- Essa verificação é comumente utilizada junto ao CREATE DATABASE para evitar
+-- a tentativa de criar um banco de dados duplicado, o que ocasionaria um erro.
+IF NOT EXISTS nome_do_banco_de_dados;
+
+CREATE DATABASE IF NOT EXISTS albuns;
+
+-- Lista todos os bancos de dados existentes.
+SHOW DATABASES;
+
+-- Define o banco de dados ativo para uso no momento.
+USE nome_do_banco_de_dados;
+```
+
+### Criando tabelas
+
+- Principais tipos de dados:
+  * Booleanos: 0 ou 1, `false` ou `true`. Padrão: `null`.
+  * Caracteres:
+    - CHAR(qtd): Passa a *qtd* que quiser, sempre ocupa o espaço todo.
+    - VARCHAR(qtd): Só ocupa o espaço que for preenchido.
+  * Números
+    - TINYINT: 0 a 255 (só positivos) ou -128 a 127.
+    ...
+    - DECIMAL(q,d): Permite colocar quantos números quer (*q*) e quantos números decimais (*d*).
+    - FLOAT/REAL: Uma casa decimal.
+    - DOUBLE: Duas casas decimais.
+  * Temporais:
+    - DATE: YYYY-MM-DD.
+    - TIME: HH:MM:SS.
+    - YEAR: 1901 a 2155.
+    - DATETIME: DATE + TIME
+    - TIMESTAMP: Igual ao anterior, mas consegue trabalhar com fuso horário.
+- Primary key e Foreign key:
+  * Identificar uma linha na tabela.
+  * Pode tanto ser uma coluna como a junção de várias colunas.
+  * Chaves estrangeiras é uma referência a uma chave primária externa.
+  * Mantem a integridade referencial do banco.
+  * Exemplos:
+```
+    DROP TABLE cidades; 
+    CREATE TABLE cidades(
+      id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+      cidade VARCHAR(100) NOT NULL,
+      estado VARCHAR(10) NOT NULL,
+      populacao INTEGER
+    );
+
+    -- Chave composta
+    DROP SCHEMA IF EXISTS Brasil;
+    CREATE SCHEMA Brasil;
+    USE Brasil;
+
+    CREATE TABLE cidades(
+        cidade VARCHAR(100) NOT NULL,
+        estado VARCHAR(10) NOT NULL,
+        populacao INTEGER,
+        CONSTRAINT PRIMARY KEY(cidade, estado)
+    );
+
+    INSERT INTO cidades(cidade, estado, populacao)
+    VALUES('Rio Claro','SP',185421),
+          ('Rio Claro','RJ',17216);
+```
+  * Um bom uso para as chaves primárias compostas, são as tabelas de junção na relação *N:N*.
+```
+CREATE TABLE filme_ator(
+  AtorId INTEGER,
+  FilmeId INTEGER,
+  CONSTRAINT PRIMARY KEY(AtorId, FilmeId),
+  FOREIGN KEY (AtorId) REFERENCES Actor (Atorid),
+  FOREIGN KEY (FilmeId) REFERENCES Actor (Filmeid)
+);
+```
+
 ## Links
 
+- [Algumas ferramentas gratuitas para modelagem de tabelas](https://www.holistics.io/blog/top-5-free-database-diagram-design-tools/)
+- [Data Science](https://www.linkedin.com/jobs/data-scientist-vagas/?originalSubdomain=br)
+- [Boas práticas na criação de tabelas.](https://www.devmedia.com.br/padronizacao-de-nomenclatura-revista-sql-magazine-100/24710)
+- [Modelo ER e Diagrama ER](https://www.devmedia.com.br/modelo-entidade-relacionamento-mer-e-diagrama-entidade-relacionamento-der/14332)
+- [Como modelar um banco de dados gratuitamente através do draw.io](https://drawio-app.com/entity-relationship-diagram-erd/)
+- [SQL Data Types](https://www.w3schools.com/sql/sql_datatypes.asp)
+- [MySQL Data Types](https://www.mysqltutorial.org/mysql-data-types.aspx)
+- [MySQL Schema Best Practices](https://www.percona.com/live/17/sites/default/files/slides/michael-benshoof-schema%20best-practices.pdf)
+- [Quando é recomendado uso de chave primária composta](https://pt.stackoverflow.com/questions/15883/quando-%C3%A9-recomendado-o-uso-de-chave-prim%C3%A1ria-composta)
 
