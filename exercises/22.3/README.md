@@ -83,6 +83,9 @@ ALTER TABLE noticia DROP COLUMN data_postagem;
 
 -- Adicionar uma nova coluna após outra
 ALTER TABLE noticia ADD COLUMN data_postagem DATETIME NOT NULL AFTER titulo;
+
+-- Adicionar uma nova coluna como primeira
+ALTER TABLE noticia ADD COLUMN data_postagem DATETIME NOT NULL FIRST;
 ```
 
 Para ver as alterações:
