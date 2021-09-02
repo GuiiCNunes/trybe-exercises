@@ -187,3 +187,5 @@ SHOW INDEX FROM tabela;
 - [MySQL Create Index - w3resource](https://www.w3resource.com/mysql/creating-table-advance/create-index.php)
 - [MySQL Views - w3resource](https://www.w3resource.com/mysql/mysql-views.php)
 - [Integridade referencial](https://pt.wikipedia.org/wiki/Integridade_referencial)
+
+- [Documentação sobre o FULLTEXT INDEX](https://www.w3resource.com/mysql/mysql-full-text-search-functions.php)
