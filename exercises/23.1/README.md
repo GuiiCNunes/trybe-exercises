@@ -204,7 +204,21 @@ Mesmo que inseridos como um *JSON*, os documentos são salvos no formato *BSON* 
 
 ### Insert
 
-Métodos `insertOne()` e `insertMany()`, um insere um documento por vez e o outro insere vários em uma única operação.
+Métodos `insertOne()` e `insertMany()`, um insere um documento por vez e o outro insere vários em uma única operação. 
+
+```
+// Criar banco
+use nome_banco
+
+// Mostrar bancos
+show dbs
+
+// Mostrar o banco atual
+db
+
+// Inserir valores
+db.nome_colection.insertOne({_id: 'Id do documento, não é bom colcoar, ele faz por padrão!', chaves: valores})
+```
 
 ## Links
 
