@@ -217,7 +217,96 @@ show dbs
 db
 
 // Inserir valores
-db.nome_colection.insertOne({_id: 'Id do documento, não é bom colcoar, ele faz por padrão!', chaves: valores})
+db.nome_colection.insertOne({_id: 'Id do documento, não é bom colcoar, ele faz por padrão!', chaves: valores});
+```
+
+Para inserir vários, ao invés de passar um objeto como parâmetro, passa-se um *array* de objetos.
+
+```
+db.nome_colection.insertMany([{chave: 'valor'}, {chave: 'valor'}]);
+```
+
+Caso ocorra algum erro (como duplicação de ID), a gravação é parada e não salva os demais documentos.
+Para não deixar de ser ordenada, pulando o erro assim:
+
+```
+db.nome_colection.insertMany([{chave: 'valor'}, {chave: 'valor'}], {ordered: false});
+```
+
+### Find
+
+Serve para selecionar uma **coleção** de documentos e retornar um **cursor** com os documentos.
+Recebe dois parâmetros:
+  1. `query`: Opcional. Tipo: Documento. Especifica os filtros da seleção. Para recuperar todos os documentos, basta omitir o parâmetro ou passar um objeto/documento vazio `{}`.
+  2. `projection`: Opcional. Tipo: Documento. Especifica quais atributos serão retornados nos documentos selecionados pela `query`.
+
+```
+db.collection.find(query, projection)
+```
+
+#### Projection
+
+```
+{ "atributo1": <valor>, "atributo2": <valor> ... }
+```
+
+O `<valor>` pode ser:
+  * `1` ou `true`: para incluir o atributo.
+  * `0` ou `false`: para não incluir o atributo.
+  * Uma expressão com [Projection Operators](https://docs.mongodb.com/manual/reference/operator/projection/)
+
+**É sempre o segundo parâmetro do `find`.**
+**O atributo ID será mostrado por padrão, mesmo se omitido. Para não mostrar, é necessário especificar que não quer.**
+
+#### Cursor
+
+Com o `find()`, é mostrado, por padrão, os 20 primeiros documentos encontrados. Para acessar os outros 20, digite `it`, até serem exibidos todos.
+Para verificar a quantidade de documentos na coleção:
+
+```
+db.colecao.count()
+```
+
+#### Tipos e comparações
+
+Alguns tipos de dados são tratados como equivalentes quando comparados. Os demais, quando utilizado os [operadores de comparação](https://docs.mongodb.com/manual/reference/operator/query-comparison/), realizam a comparação apenas em documentos que o [tipo BSON](https://docs.mongodb.com/manual/reference/bson-type-comparison-order/#bson-types-comparison-order) do atributo corresponde com o do operando na *query*.
+
+### Exemplos
+
+- [bios-example](https://docs.mongodb.com/manual/reference/bios-example-collection/)
+
+- A operação abaixo retorna os documentos da coleção bios em que o atributo _id é igual a 5 :
+```
+db.bios.find( { _id: 5 } )
+```
+
+- Agora, a operação abaixo retorna todos os documentos da coleção bios em que o campo `last` do subdocumento `name` é igual a "Hopper" :
+```
+db.bios.find( { "name.last": "Hopper" } )
+```
+
+**Para acessar subdocumentos utilizados [dot notation](https://docs.mongodb.com/manual/core/document/#document-dot-notation-embedded-fields).**
+
+- Especificando quais atributos serão mostrados:
+```
+db.bios.find({}, { name: 1 })
+```
+
+### Comandos
+
+- Limitar a quantidade de documentos retornados:
+```
+db.coelcao.find(<query>).limit(<número>)
+```
+
+- Deixar os resultados exibidos mais legíveis:
+```
+db.colecao.find().limit(5).pretty()
+```
+
+- Pular documentos (semelhante ao `OFFSET`), mostra a partir de qual documento começará a retornar os resultados:
+```
+db.coelcao.find(<query>).skip(<número>)
 ```
 
 ## Links
@@ -236,3 +325,10 @@ db.nome_colection.insertOne({_id: 'Id do documento, não é bom colcoar, ele faz
 - [MongoDB for VS Code](https://marketplace.visualstudio.com/items?itemName=mongodb.mongodb-vscode)
 - [NoSQLBooster for MongoDB](https://nosqlbooster.com/downloads)
 - [Schema Validation](https://docs.mongodb.com/manual/core/schema-validation/)
+- [bios-example](https://docs.mongodb.com/manual/reference/bios-example-collection/)
+
+- [Find](https://docs.mongodb.com/manual/reference/method/db.collection.find/index.html)
+- [Projection Operators](https://docs.mongodb.com/manual/reference/operator/projection/)
+- [Operadores de comparação](https://docs.mongodb.com/manual/reference/operator/query-comparison/)
+- [BSON Types](https://docs.mongodb.com/manual/reference/bson-type-comparison-order/#bson-types-comparison-order)
+- [mongoimport](https://docs.mongodb.com/database-tools/mongoimport/#examples)
