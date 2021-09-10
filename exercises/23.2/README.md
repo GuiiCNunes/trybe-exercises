@@ -101,6 +101,12 @@ db.inventory.deleteMany({ status : "A" })
 
 **Para remover todos, basta não passar nenhum parâmetro.**
 
+Para remover o banco:
+
+```
+db.dropDatabase();
+```
+
 ## Links
 
 - [Query and Projection Operators](https://docs.mongodb.com/manual/reference/operator/query/)
