@@ -436,6 +436,164 @@ Resultado:
 
 ### $addToSet
 
+O método `$addToSet` garante que os valores de um *array* não são duplicados. Tendo os aspectos:
 
+1. Se utilizado em um campo que não existe, ele cria o campo com um array com o valor especificado.
+2. Se utilizado em um campo que já existe, mas não é um *array*, não funciona a operação.
+3. Funciona com documentos, ou seja, impossibilita de colocar um documento que já existe(campos, valores e ordem) dentro de um *array*.
+
+#### Exemplos
+
+Base:
+```
+use sales;
+db.inventory.insertOne(
+  {
+    _id: 1,
+    item: "polarizing_filter",
+    tags: ["electronics", "camera"],
+  }
+);
+```
+
+**Adicionando `accessories`:**
+
+```
+db.inventory.updateOne(
+  { _id: 1 },
+  { $addToSet: { tags: "accessories" } },
+);
+```
+
+Resultado:
+
+```
+{
+  _id: 1,
+  item: "polarizing_filter",
+  tags: [
+    "electronics",
+    "camera",
+    "accessories",
+  ],
+}
+```
+
+**Se o valor existir:**
+```
+db.inventory.updateOne(
+  { _id: 1 },
+  { $addToSet: { tags: "camera"  } },
+);
+```
+
+Resultado:
+`{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 0 }`
+
+**Com o modificador `$each`:**
+```
+// Base:
+use sales;
+db.inventory.insertOne(
+  { _id: 2, item: "cable", tags: ["electronics", "supplies"] }
+);
+
+// Acrescentando:
+db.inventory.updateOne(
+  { _id: 2 },
+  {
+    addToSet: {
+      tags: {
+        each: ["camera", "electronics", "accessories"],
+      },
+    },
+  },
+);
+
+// Resultado
+{
+  _id: 2,
+  item: "cable",
+  tags: ["electronics", "supplies", "camera", "accessories"],
+}
+```
+
+**OBS.:** Acrescentou apenas `camera` e `accessories`, já que `eletronics` já existia.
+
+### Array Filters
+
+É possível dinamizar a busca de campos dentro de arrays de documentos em um documento utilizando filtros. Eles são o 3º parametro do `update`.
+Exemplos:
+
+**Base:**
+```
+db.recipes.insertMany([
+  {
+    title: "Panqueca Simples",
+    ingredients: [
+      { name: "Farinha", quantity: 2},
+      { name: "Oleo", quantity: 4 },
+      { name: "Leite", quantity: 1 },
+    ],
+  },
+  {
+    title: "Bolo de Cenoura",
+    ingredients: [
+      { name: "Farinha", quantity: 2},
+      { name: "Oleo", quantity: 1, unit: "xícara" },
+      { name: "Ovo", quantity: 3},
+      { name: "Cenoura", quantity: 3},
+      { name: "Fermento", quantity: 1},
+    ],
+  },
+]);
+```
+
+Contexto: Quero atualizar as `unit` de todos os documentos do array que possuam o `name`como `Farinha Integral`. Atualziando tambem os documentos que possuem o `name` `Farinha` para `Farinha Integral`.
+
+**Atualizando `Farinha`:**
+```
+db.recipes.updateOne(
+  { title: "Panqueca Simples" },
+  {
+    set : {
+      "ingredients.$[elemento].name": "Farinha Integral",
+    },
+  },
+  { arrayFilters: [ { "elemento.name": "Farinha" } ] },
+);
+```
+
+**Atualizando `unit`:**
+```
+db.recipes.updateOne(
+  { title: "Panqueca Simples" },
+  {
+    set : {
+      "ingredients.$[elemento].unit": "xícara",
+    },
+  },
+  { arrayFilters: [ { "elemento.name": "Farinha Integral" } ] },
+);
+```
+
+**Atualizando todos:**
+```
+db.recipes.updateMany( // Passamos de updateOne para updateMany.
+  {}, // Retiramos a restrição do título.
+  {
+    set : {
+      "ingredients.$[elemento].unit": "xícara", // Setamos `unit` como "xícara",
+      "ingredients.$[elemento].name": "Farinha Integral", // `name` como "Farinha Integral".
+    },
+  },
+  { arrayFilters: [ { "elemento.name": "Farinha" } ] }, // Filtramos os arrays que o valor da propriedade `name` seja "Farinha".
+);
+```
 
 ## Links
+
+- [Array Update Operators and Modifiers](https://docs.mongodb.com/manual/reference/operator/update-array/)
+- [Alterar o primeiro elemento com uma condição específica](https://docs.mongodb.com/manual/reference/operator/update/positional/#up._S_)
+- [Alterar todos os elementos com uma condição específica](https://docs.mongodb.com/manual/reference/operator/update/positional-all/#up._S_[])
+- [Utilizando Array Filters](https://docs.mongodb.com/manual/reference/operator/update/positional-filtered/#up._S_[%3Cidentifier%3E])
