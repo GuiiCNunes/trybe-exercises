@@ -65,10 +65,27 @@ db.clientes.aggregate([
 
 4. Conte quantos clientes do estado SC existem na coleção. Retorne um documento em que o campo _id contenha a UF e outro campo com o total.
 ```
+db.clientes.aggregate([
+  { $match: { "endereco.uf": "SC" } },
+  {
+    $group: {
+      _id: "endereco.uf",
+      count: { $sum: 1 }
+    }
+  }
+]);
 ```
 
 5. Agrupe os clientes por sexo . Retorne o total de clientes de cada sexo no campo total .
 ```
+db.clientes.aggregate([
+  {
+    $group: {
+      _id: "$sexo",
+      count: { $sum: 1 }
+    }
+  }
+]);
 ```
 
 6. Agrupe os clientes por sexo e uf . Retorne o total de clientes de cada sexo no campo total .
