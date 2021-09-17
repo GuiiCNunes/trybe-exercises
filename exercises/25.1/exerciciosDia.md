@@ -40,16 +40,17 @@ db.clientes.aggregate([
 ```
 
 2. Utilizando o estágio $match , escreva uma agregação para retornar somente os clientes do sexo "FEMININO" e com data de nascimento entre os anos de 1995 e 2005 .
+
+[Fonte](https://www.mongodb.com/community/forums/t/finding-data-between-two-dates-by-using-a-query-in-mongodb-charts/102506)
+
 ```
 db.clientes.aggregate([
   { $match: {
     sexo: "FEMININO" ,
-    dataNascimento: { $gte: Date(1995), $lte: Date(2005) }
+    dataNascimento: { $gte: ISODate("1995-01-01"), $lte: ISODate("2005-01-01") }
   } },
 ]);
 ```
-
-**FALTA TERMINAR A 2!!!**
 
 3. Utilizando o estágio $match , escreva uma agregação para retornar somente os clientes do sexo "FEMININO" e com data de nascimento entre os anos de 1995 e 2005 , limitando a quantidade de documentos retornados em 5 .
 ```
