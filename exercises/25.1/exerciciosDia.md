@@ -10,9 +10,11 @@ Para esta etapa, utilizaremos um dataset que contém três coleções: clientes 
 2. Faça a importação para sua instância do MongoDB:
 
 ```
-mongoimport --db erp <caminho_do_arquivo_clientes.json>
-mongoimport --db erp <caminho_do_arquivo_produtos.json>
-mongoimport --db erp <caminho_do_arquivo_vendas.json>
+mongoimport --db erp exercises/25.1/clientes.json
+
+mongoimport --db erp exercises/25.1/produtos.json
+
+mongoimport --db erp exercises/25.1/vendas.json
 ```
 
 3. Conecte-se à sua instância e confira o número de documentos em cada coleção:
@@ -90,6 +92,14 @@ db.clientes.aggregate([
 
 6. Agrupe os clientes por sexo e uf . Retorne o total de clientes de cada sexo no campo total .
 ```
+db.clientes.aggregate([
+  {
+    $group: {
+      _id: { "sexo": "$sexo" , "uf": "$endereco.uf" },
+      total: { $sum: 1 }
+    }
+  }
+]);
 ```
 
 7.  Utilizando a mesma agregação do exercício anterior, adicione um estágio de projeção para modificar os documentos de saída, de forma que se pareçam com o documento a seguir (não se importe com a ordem dos campos):
@@ -103,11 +113,37 @@ db.clientes.aggregate([
 ```
 
 ```
+db.clientes.aggregate([
+  {
+    $group: {
+      _id: { "sexo": "$sexo" , "estado": "$endereco.uf" },
+      total: { $sum: 1 }
+    }
+  },
+  {
+    $project: {
+      _id: 0,
+      estado: "$_id.estado",
+      sexo: "$_id.sexo",
+      total: 1,
+    }
+  }
+]);
 ```
 
 
 8. Descubra quais são os 5 clientes que gastaram o maior valor.
 ```
+db.vendas.aggregate([
+  {
+    $group: {
+      _id: "$clienteId",
+      totalBuys: { $sum: "$valorTotal" },
+    }
+  },
+  { $sort: { totalBuys: -1 } },
+  { $limit: 5},
+]);
 ```
 
 9. Descubra quais são os 10 clientes que gastaram o maior valor no ano de 2019 .
