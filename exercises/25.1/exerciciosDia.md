@@ -148,15 +148,69 @@ db.vendas.aggregate([
 
 9. Descubra quais são os 10 clientes que gastaram o maior valor no ano de 2019 .
 ```
+db.vendas.aggregate([
+  {
+    $match: {
+      dataVenda: {
+        $gte: new Date("2019-01-01"),
+        $lt: new Date("2020-01-01"),
+      },
+    },
+  },
+  {
+    $group: {
+      _id: "$clienteId",
+      totalBuys: { $sum: "$valorTotal" },
+    }
+  },
+  { $sort: { totalBuys: -1 } },
+  { $limit: 10},
+]);
 ```
 
 10. Descubra quantos clientes compraram mais de 5 vezes. Retorne um documento que contenha somente o campo clientes com o total de clientes.
 Dica: O operador [$count](https://docs.mongodb.com/manual/reference/operator/aggregation/count/#pipe._S_count) pode simplificar sua query .
 ```
+db.vendas.aggregate([
+  {
+    $group: {
+      _id: "$clienteId",
+      vendas: { $sum: 1 },
+    }
+  },
+  {
+    $match: {
+      vendas: { $gt: 5 },
+    },
+  },
+  { $count: "clientes" },
+]);
 ```
 
 11. Descubra quantos clientes compraram menos de três vezes entre os meses de Janeiro de 2020 e Março de 2020 .
 ```
+db.vendas.aggregate([
+  {
+    $match: {
+      dataVenda: {
+        $gte: new Date("2020-01-01"),
+        $lt: new Date("2020-04-01"),
+      },
+    },
+  },
+  {
+    $group: {
+      _id: "$clienteId",
+      vendas: { $sum: 1 },
+    }
+  },
+  {
+    $match: {
+      vendas: { $lt: 3 },
+    },
+  },
+  { $count: "clientes" },
+]);
 ```
 
 12. Descubra quais as três uf s que mais compraram no ano de 2020 . Retorne os documentos no seguinte formato:
@@ -169,6 +223,40 @@ Dica: O operador [$count](https://docs.mongodb.com/manual/reference/operator/agg
 ```
 
 ```
+db.clientes.aggregate([
+  {
+    $lookup: {
+      from: "vendas",
+      localField: "clienteId" ,
+      foreignField: "clienteId",
+      as: "vendas",
+    },
+  },
+  { $unwind: "$vendas" },
+  {
+    $match: {
+      "vendas.dataVenda": {
+        $gte: new Date("2020-01-01"),
+        $lt: new Date("2021-01-01"),
+      },
+    },
+  },
+  {
+    $group: {
+      _id: "$endereco.uf",
+      totalVendas: { $sum: 1 },
+    },
+  },
+  { $sort: { totalVendas: -1 } },
+  { $limit: 3 },
+  {
+    $project: {
+      _id: 0,
+      uf: "$_id",
+      totalVendas: 1,
+    }
+  },
+]);
 ```
 
 13. Encontre qual foi o total de vendas e a média de vendas de cada uf no ano de 2019 . Ordene os resultados pelo nome da uf . Retorne os documentos no seguinte formato:
@@ -182,4 +270,39 @@ Dica: O operador [$count](https://docs.mongodb.com/manual/reference/operator/agg
 ```
 
 ```
+db.clientes.aggregate([
+  {
+    $lookup: {
+      from: "vendas",
+      localField: "clienteId" ,
+      foreignField: "clienteId",
+      as: "vendas",
+    },
+  },
+  { $unwind: "$vendas" },
+  {
+    $match: {
+      "vendas.dataVenda": {
+        $gte: new Date("2019-01-01"),
+        $lt: new Date("2020-01-01"),
+      },
+    },
+  },
+  {
+    $group: {
+      _id: "$endereco.uf",
+      totalVendas: { $sum: 1 },
+      mediaVendas: { $avg: "$vendas.valorTotal" },
+    },
+  },
+  { $sort: { _id: 1 } },
+  {
+    $project: {
+      _id: 0,
+      uf: "$_id",
+      totalVendas: 1,
+      mediaVendas: 1,
+    }
+  },
+]);
 ```
