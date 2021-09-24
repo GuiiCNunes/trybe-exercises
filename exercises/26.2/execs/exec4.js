@@ -8,7 +8,7 @@ function getNames() {
     .catch((err) => err);
 }
 
-async function view() {
+async function viewAll() {
   try {
     let names = await getNames();
     names.forEach(({ id, name }) => {
@@ -19,4 +19,17 @@ async function view() {
   }
 }
 
-view();
+function getIds() {
+  let ids = [];
+  getNames()
+    .then((array) => {
+      
+    })
+    .catch((err) => err);
+}
+
+function getName(id) {
+  return new Promise((resolve, reject) => {
+    if
+  });
+}
