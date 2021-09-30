@@ -130,7 +130,55 @@ app.listen(3000, function () {
 });
 ```
 
+### Métodos
+
+* `.send`: Genérico, adapta o tipo de retorno ao que vai ser retornado.
+* `.json`: Mais específico, evidencia que o que será retornado é um `json`.
+
+### Clientes HTTP
+
+- [Postman](https://www.postman.com/)
+- [Insomnia](https://insomnia.rest/)
+- [httpie](https://httpie.io/)
+
+### cors
+
+É necessário instalar o `cors` na aplicação para que ela possa receber requisições.
+
+```
+npm i cors
+```
+
+Utilizando ele na aplicação:
+```
+// const express = require('express');
+// const app = express();
+const cors = require('cors');
+
+app.use(cors());
+```
+
+### Parâmetros de rota
+
+Possibilitam acessar conteúdos específicos, sem a necessidade de criar a rota para cada conteúdo de forma unitária. Ou seja, passamos valores através da rota. `/<rota>/:<parametro>`. Exemplo:
+
+```
+app.get('/recipes/:id', function (req, res) {...});
+```
+
+Para acessar esses valores, utilizamos o `req.params` dentro da *callback*.
+
+### Erro ao retornar duas respostas
+
+```
+Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+```
+
+A *callback* **só pode usar um** `res`. Caso seja possível mais de uma condição de retorno, use o `return` para quebrar o fluxo principal.
+
 ## Links
 
 - [Exemplos de Headers](https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Headers)
 - [Node.js Foundation](https://openjsf.org/)
+- [Postman](https://www.postman.com/)
+- [Insomnia](https://insomnia.rest/)
