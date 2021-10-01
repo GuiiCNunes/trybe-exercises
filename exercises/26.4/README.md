@@ -176,6 +176,28 @@ Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the cli
 
 A *callback* **só pode usar um** `res`. Caso seja possível mais de uma condição de retorno, use o `return` para quebrar o fluxo principal.
 
+### Query String
+
+Possibilita passar mais parâmetros via *string*, sem a necessidade de atribuir uma rota para receber eles.
+Exemplo:
+
+```
+/produtos?q=Geladeira&precoMaximo=2000
+```
+No exemplo, é passado por url para a página `/produtos` uma chave `q` com valor `Geladeira` e outra `precoMaximo` com valor `2000`.
+
+Para acessar os valores, utiliza-se `req.query`. Exemplo:
+
+```
+app.get('/recipes/search', function (req, res) {
+  const { name } = req.query;
+  const filteredRecipes = recipes.filter((r) => r.name.includes(name));
+  res.status(200).json(filteredRecipes);
+});
+```
+
+**Rotas mais específicas devem vir antes de rotas genéricas no código.**
+
 ## Links
 
 - [Exemplos de Headers](https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Headers)
