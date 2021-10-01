@@ -198,9 +198,137 @@ app.get('/recipes/search', function (req, res) {
 
 **Rotas mais específicas devem vir antes de rotas genéricas no código.**
 
+### Enviando parâmetros via body
+
+Envia informações de forma segura e rápida, serializando os dados e não permitindo que apareçam na URL. Porém precisa de métodos específicos, como o `post`. Os dados precisam ser *parseados* em formato JSON. Também é necessário instalar o pacote:
+
+```
+npm i body-parser
+```
+
+#### Uso
+
+O *Express* aceita um mesmo caminho com métodos diferentes.
+Exemplo de acesso com o `fetch`:
+
+```
+fetch(`http://localhost:3001/recipes/`, {
+  method: 'POST',
+  headers: {
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    id: 4,
+    title: 'Macarrão com Frango',
+    price: 30
+  })
+});
+```
+
+É passado um segundo parâmetro, sendo este formado pelos atributos `method`, `headers` e `body`.
+
+- `method`: O método que será utilizado (`GET`, `POST`, `PUT` e `DELETE`).
+- `headers`: Algumas informações sobre a requisição. Como:
+  * `Accept`: que diz qual tipo de dado esperado no retorno.
+  * `Content-Type`: sinaliza o que está indo no corpo da requisição.
+- `body`: Corpo da requisição. Necessário converter para uma *string JSON*. No lado do servidor, é necessário utilizar o `bodyParse` para recurar o objeto JS enviado.
+
+Exemplo de requisição com `httpie`:
+
+```
+http POST :3001/recipes id:=4 name='Macarrão com Frango' price:=30
+```
+
+**OBS.**: Onde tem apenas `=`, o valor é enviado como *string*. Já nos casos `:=`, o valor é enviado como número. Isso no `body`.
+
+```
+http :3001/validateToken Authorization:S6xEzQUTypw4aj5A
+```
+
+Quando passamos parâmetros pelo `header` é utilizado apenas `:`.
+
+### Atualizando e Deletando Dados Através da API
+
+Para isso, os métodos utilizados devem ser o `PUT` e o `DELETE`. Exemplo:
+
+```
+// ...
+
+app.put('/recipes/:id', function (req, res) {
+  const { id } = req.params;
+  const { name, price } = req.body;
+  const recipeIndex = recipes.findIndex((r) => r.id === parseInt(id));
+
+  if (recipeIndex === -1) return res.status(404).json({ message: 'Recipe not found!' });
+
+  recipes[recipeIndex] = { ...recipes[recipeIndex], name, price };
+
+  res.status(204).end();
+});
+// ...
+```
+
+```
+app.delete('/recipes/:id', function (req, res) {
+  const { id } = req.params;
+  const recipeIndex = recipes.findIndex((r) => r.id === parseInt(id));
+
+  if (recipeIndex === -1) return res.status(404).json({ message: 'Recipe not found!' });
+
+  recipes.splice(recipeIndex, 1);
+
+  res.status(204).end();
+});
+```
+
+**OBS.**: A função `.end()`, ao final, avisa que a resposta nmão terá nenhuma informação.
+
+#### Exemplos com o `fetch()`
+
+```
+// Requisição do tipo PUT
+fetch(`http://localhost:3001/recipes/2`, {
+  method: 'PUT',
+  headers: {
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    name: 'Macarrão ao alho e óleo',
+    price: 40
+  })
+});
+
+// Requisição do tipo DELETE
+fetch(`http://localhost:3001/recipes/4`, {
+  method: 'DELETE',
+  headers: {
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+  }
+});
+```
+
+### Rota inexistente mais amigável
+
+```
+app.all('*', function (req, res) {
+    return res.status(404).json({ message: `Rota '${req.path}' não existe!`});
+});
+```
+
+O método `app.all()` alcança todos os verbos. E o `'*'` é um *wildcard* (coringa), que executa a *callback* para qualquer rota que chegar até ali.
+
 ## Links
 
 - [Exemplos de Headers](https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Headers)
 - [Node.js Foundation](https://openjsf.org/)
 - [Postman](https://www.postman.com/)
 - [Insomnia](https://insomnia.rest/)
+
+- [Documentação Express - Rotas](https://expressjs.com/pt-br/guide/routing.html)
+- [Documentação Express - Middleware](https://expressjs.com/pt-br/guide/writing-middleware.html)
+- [Página do MDN sobre Node + Express](https://developer.mozilla.org/pt-BR/docs/Learn/Server-side/Express_Nodejs/Introdu%C3%A7%C3%A3o)
+- [Rest with Node and Express](https://www.robinwieruch.de/node-express-server-rest-api)
+- [Middleware [Node js Design Patterns]](https://www.youtube.com/watch?v=lI2MiMEn9HQ)
