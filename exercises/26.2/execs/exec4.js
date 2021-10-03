@@ -36,22 +36,51 @@ function excludePersons() {
       return arr.filter((obj) => obj.id !== '10' && obj.id !== '6');
     })
     .then((data) => {
-      
+      fs.writeFile('./simpsons.json', JSON.stringify(data));
     })
     .catch((err) => console.log(err));
-  
+
+}
+
+function getSimpsonsFamily() {
+  getNames()
+    .then((arr) => {
+      return arr.filter((obj) => ['1', '2', '3', '4'].includes(obj.id));
+    })
+    .then((data) => {
+      fs.writeFile('./simpsonFamily.json', JSON.stringify(data));
+    })
+    .catch((err) => console.log(err));
+}
+
+async function addNelson() {
   try {
-    await fs.writeFile('./meu-arquivo.txt', 'Meu textão');
-    console.log('Arquivo escrito com sucesso!');
-  } catch (err) {
-    console.error(`Erro ao escrever o arquivo: ${err.message}`);
+    const oldContent = await JSON.parse(await fs.readFile('./simpsonFamily.json', 'utf8'));
+    const names = await getNames();
+    const newContent = [
+      ...oldContent,
+      (names.find((per) => per.name === 'Nelson Muntz'))
+    ];
+    fs.writeFile('./simpsonFamily.json', JSON.stringify(newContent));
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+async function addMagie() {
+  try {
+    const content = await JSON.parse(await fs.readFile('./simpsonFamily.json', 'utf8'));
+    const names = await getNames();
+    const indexOfNelson = content.findIndex((per) => per.name === 'Nelson Muntz');
+    content[indexOfNelson] = names.find((per) => per.name === 'Maggie Simpson')
+    fs.writeFile('./simpsonFamily.json', JSON.stringify(content));
+  } catch (error) {
+    console.log(error);
   }
 }
 
 function start() {
-  getName(3)
-    .then((obj) => console.log(`${obj.id} - ${obj.name}`))
-    .catch((err) => console.log(err));
+  addMagie();
 }
 
 start();
