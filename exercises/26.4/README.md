@@ -246,7 +246,7 @@ http POST :3001/recipes id:=4 name='Macarrão com Frango' price:=30
 http :3001/validateToken Authorization:S6xEzQUTypw4aj5A
 ```
 
-Quando passamos parâmetros pelo `header` é utilizado apenas `:`.
+**Quando passamos parâmetros pelo `header` é utilizado apenas `:`**.
 
 ### Atualizando e Deletando Dados Através da API
 
