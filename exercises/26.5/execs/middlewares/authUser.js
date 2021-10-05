@@ -6,10 +6,12 @@ const validUser = (req, res, next) => {
 
   if(
     username.length <= 3
-    // // || isValidEmail.test(email)
-    // || typeof password !== 'number'
+    || !isValidEmail.test(email)
+    || typeof password !== 'number'
     || !isValidPassword.test(password)
   ) return res.status(400).json({ "message": "invalid data" });
+
+  next();
 };
 
 module.exports = validUser;
