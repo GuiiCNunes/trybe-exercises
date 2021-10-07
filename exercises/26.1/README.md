@@ -88,6 +88,144 @@ A função responsável por coletar as informações no banco é a `getAll`, sen
 
 A função `connection.execute()` retorna uma *promise*, que, quando resolvida, fornece um *array* com dois campos `[rows, fields]`. As `rows` ontem as linhas retornadas pela *query*, ao passo que `fields` são metadados da pesquisa em sí.
 
+#### Passando parâmetros para a query
+
+Caso queira passar parâmetros para a *query*, o `mysql2` tem um método seguro para isso (evitando SQLInject). Na *query*, todos os valores que serão recebidos de forma dinâmica, coloque como `?` e, como segundo parâmetro do `execute` passe um *array* com as variáveis que deseja inserir. Exemplo:
+
+```
+const query = 'SELECT id, first_name, middle_name, last_name FROM model_example.authors WHERE id = ?'
+const [ authorData ] = await connection.execute(query, [id]);
+```
+
+**Exemplo de inserção**
+```
+const create = async (firstName, middleName, lastName) => connection.execute(
+    'INSERT INTO model_example.authors (first_name, middle_name, last_name) VALUES (?,?,?)',
+    [firstName, middleName, lastName],
+);
+```
+
+### Model com MongoDB
+
+A lib utilizada para se comunicar com o MongoDB é a `mongodb`. Para instalar:
+
+```
+ npm install mongodb
+```
+
+A conexão é assim:
+
+```
+// models/connection.js
+
+const { MongoClient } = require('mongodb');
+
+const OPTIONS = {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+}
+
+const MONGO_DB_URL = 'mongodb://127.0.0.1:27017';
+
+let db = null;
+
+const connection = () => {
+    return db
+    ? Promise.resolve(db)
+    : MongoClient.connect(MONGO_DB_URL, OPTIONS)
+    .then((conn) => {
+        db = conn.db('model_example');
+        return db;
+    })
+};
+
+module.exports = connection;
+```
+
+* `useNewUrlParser`: o time do mongodb reescreveu a forma que o driver utiliza para interpretar a URL de conexão ao banco. Por ser uma mudança muito grande, essa nova forma de interpretação de URLs só é ativada com o uso dessa flag. A forma antiga, no entanto, está depreciada, e seu uso emite um warning no terminal.
+
+* `useUnifiedTopology`: nas versões mais recentes do driver do mongodb, a ferramenta que realiza a descoberta de servidores e a conexão com os mesmos foi alterada. Essa flag diz para o driver do mongodb que queremos utilizar essa nova forma de conexão. A forma de conexão antiga está depreciada, e seu uso emite um warning no terminal.
+
+**OBS.**: O código de conexão segue um padrão `singleton`, nesse padrão, mesmo que o objeto ou módulo seja chamado diversas vezes, só será criado um. Na primeira vez que `connection` for chamado, a variável `db`estará vazia.
+
+**OBS.**: O `connection` **não é um objeto**, como no `mysql2`. Agora **é uma *Promise***.
+
+Exemplo de busca:
+
+```
+// models/Author.js
+
+// const connection = require('./connection');
+
+// Busca todos os autores do banco.
+const getAll = async () => {
+    return connection()
+        .then((db) => db.collection('authors').find().toArray())
+            .then((authors) =>
+                authors.map(({ _id, firstName, middleName, lastName }) =>
+                getNewAuthor({
+                    id: _id,
+                    firstName,
+                    middleName,
+                    lastName,
+                })
+            )
+        );
+}
+// ...
+```
+
+**OBS.**: O mongo **retorna um objeto para cada documento encontrado**. Diferente do `mysql2` que retorna um *array*.
+
+**OBS.**: Diferente do mongo puro, para escrever as *queries* se utiliza `db.collection('authors').find()`, ao invés do `db.authors.find()`. Podendo utilizar outros métodos, como `findOne` , `insertMany` e `updateMany`.
+
+**OBS.**: **É necessário dar um `.toArray()` ao final de toda consulta.**
+
+#### Validar id's do MongoDB
+
+A ferramenta `ObjectId` permite validar `_id` do MongoDB. Exemplo:
+
+```
+// models/Authors.js
+
+const { ObjectId } = require('mongodb');
+
+// const connection = require('./connection');
+
+// ...
+
+// Busca um autor específico, a partir do seu ID
+// @param {String} id ID do autor a ser recuperado
+
+const findById = async (id) => {
+    if (!ObjectId.isValid(id)) {
+        return null;
+    }
+
+    const authorData = await connection()
+        .then((db) => db.collection('authors').findOne(new ObjectId(id)));
+
+    if (!authorData) return null;
+
+    const { firstName, middleName, lastName } = authorData;
+
+    return getNewAuthor({ id, firstName, middleName, lastName });
+};
+
+// ...
+```
+
+#### Inserção
+
+```
+const create = async (firstName, middleName, lastName) =>
+    connection()
+        .then((db) => db.collection('authors').insertOne({ firstName, middleName, lastName }))
+        .then(result => getNewAuthor({ id: result.insertedId, firstName, middleName, lastName }));
+```
+
+O método `db.collection('authors').insertOne({ firstName, middleName, lastName })` tem como retorno um `result` com diversas informações a respeito do resultado da *query*. Entre essas informações, podemos destacar o `_id` que a inserção recebeu, sendo a chave `insertedId`.
+
 ## Links
 
 * [Software Architecture Guide - Martin Fowler](https://martinfowler.com/architecture/)
