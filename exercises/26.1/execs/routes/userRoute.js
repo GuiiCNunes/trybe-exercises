@@ -1,4 +1,5 @@
 var express = require('express');
+const authData = require('../middlewares/authData');
 const { isValidDataUser, createUser, getAllUsers, getUserById } = require('../model/User');
 var router = express.Router()
 
@@ -21,16 +22,13 @@ router.get('/:id', async (req, res) => {
   return res.status(200).json(response);
 });
 
-router.post('/', async (req, res) => {
-  if (!isValidDataUser(req.body)) return res.status(400).json(
-    {
-      "error": true,
-      "message": "O campo 'password' deve ter pelo menos 6 caracteres"
-    }
-  );
-
+router.post('/', authData, async (req, res) => {
   const response = await createUser(req.body);
   res.status(201).json(response);
+});
+
+router.put('/:id', authData, (req, res) => {
+
 });
 
 module.exports = router;

@@ -31,9 +31,20 @@ const getUserById = async (id) => {
   return { firstName, lastName, email, password, id: _id };
 }
 
+const updateUser = async (id, { firstName, lastName, email, password }) => {
+  const user = await getUserById(id);
+  if (!user) return null;
+
+  const response = await connection()
+    .then((db) => db.collection('users').updateOne(new ObjectId(id)), { $set: {
+      firstName, lastName, email, password
+    }});
+};
+
 module.exports = {
   createUser,
   isValidDataUser,
   getAllUsers,
   getUserById,
+  updateUser,
 };
