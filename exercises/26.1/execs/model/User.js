@@ -36,9 +36,10 @@ const updateUser = async (id, { firstName, lastName, email, password }) => {
   if (!user) return null;
 
   const response = await connection()
-    .then((db) => db.collection('users').updateOne(new ObjectId(id)), { $set: {
+    .then((db) => db.collection('users').updateOne({ _id: new ObjectId(id) }, { $set: {
       firstName, lastName, email, password
-    }});
+    }}));
+  return { id, firstName, lastName, email, password };
 };
 
 module.exports = {

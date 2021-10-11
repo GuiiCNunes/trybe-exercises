@@ -24,7 +24,7 @@ router.get('/:id', async (req, res) => {
 
 router.post('/', authData, async (req, res) => {
   const response = await createUser(req.body);
-  res.status(201).json(response);
+  res.status(201).json({ id: response[0].insertId, ...req.body });
 });
 
 router.put('/:id', authData, async (req, res) => {
