@@ -157,6 +157,63 @@ const { MongoMemoryServer } = require('mongodb-memory-server');
 
 ### Service e testes
 
+É uma boa prática mockar o model, como:
+
+```
+before(() => {
+      const ID_EXAMPLE = '604cb554311d68f491ba5781';
+
+      sinon.stub(MoviesModel, 'create')
+        .resolves({ id: ID_EXAMPLE });
+    });
+```
+
+### Controllers e testes
+
+> Percebam que os testes do controller tem uma particularidade em sua implementação. Isso acontece porque diferente das outras camadas, o controller não possui funções simples que retornam um resultado qualquer, mas sim middlewares que funcionam a partir dos objetos req , res , next e error .
+> Dessa forma, para conseguirmos testar, precisaremos passar um input a partir do req e validar o output a partir do res , validando se os devidos métodos foram chamados e com os parâmetros esperados.
+> Para nos ajudar com essa tarefa iremos utilizar recursos do sinon , observe como ira ficar no teste do movieController
+(Fonte [Trybe](https://www.betrybe.com/))
+
+```
+describe('Ao chamar o controller de create', () => {
+  describe('quando o payload informado não é válido', () => {
+    const response = {};
+    const request = {};
+
+    before(() => {
+      request.body = {};
+
+      response.status = sinon.stub()
+        .returns(response);
+      response.json = sinon.stub()
+        .returns();
+    })
+
+    it('é chamado o status com o código 400', async () => {
+      await MoviesController.create(request, response);
+
+      expect(response.status.calledWith(400)).to.be.equal(true);
+    });
+
+    it('é chamado o json com a mensagem "Dados inválidos"', async () => {
+      await MoviesController.create(request, response);
+
+      expect(response.json.calledWith({ message: 'Dados inválidos' })).to.be.equal(true);
+    });
+
+  });
+
+  (...)
+```
+
+Criamos o mock da função de respostas (`response`) e verificamos se ela foi chamada com os devidos parâmetros: `expect(response.status.calledWith(400)).to.be.equal(true);`.
+
 ## Links
 
 - [Unit Tests - Martin Fowler](https://martinfowler.com/bliki/UnitTest.html)
+
+- [Artigo Trybe: Teste unitário: o que são, por que usar e por onde começar?](https://blog.betrybe.com/tecnologia/testes-unitarios/)
+- [Artigo (em inglês): Blazing Fast Testing in Node with MongoDB](https://formidable.com/blog/2019/fast-node-testing-mongodb/)
+- [Artigo (em inglês): Martin Fowler - UnitTest](https://martinfowler.com/bliki/UnitTest.html)
+- [Ferramenta: mongodb-memory-server (MongoDB em memória)](https://github.com/nodkz/mongodb-memory-server)
