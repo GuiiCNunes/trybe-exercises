@@ -186,8 +186,86 @@ OBS: É considerado `branch`mesmo que não exista um `else`.
 
 > Lines (Linhas): Retorna o percentual de linhas executadas nos arquivos, no caso de All files , esse valor representa o total de cobertura da sua suite de testes , que no nosso caso representa 81,08% de cobertura total, dado os problemas apresentados.
 
+### Como gerar uma cobertura de testes no meu ambiente?
+
+Alem do formato *Instabul* é possível gerar [outros formatos de relatórios](https://istanbul.js.org/docs/advanced/alternative-reporters/) (como html, xml,...).
+
+**Comandos básicos**
+* `--coverage`
+```
+...
+"scripts": {
+    ...
+    "test": "jest ./tests",
+    "test:coverage": "npm test -- --coverage",
+    ...
+},
+...
+```
+**No caso do *mocha*, é necessário instalar o *nyc***.
+```
+npm i -D nyc
+```
+```
+...
+"scripts": {
+    ...
+    "test": "mocha ./tests --recursive",
+    "test:coverage": "nyc npm test",
+    ...
+},
+...
+```
+
+**Personalizando a cobertura**
+
+Por padrão os *reporters* (relatórios) vão fazer a cobertura dos arquivos que são referenciados nos testes. Para trazer a porcentagem de cobertura em um escopo fixo:
+
+> Utilizando um [arquivo de configuração](https://jestjs.io/pt-BR/docs/configuration) `jest.config.js` (que deve ser referenciado via cli com o parâmetro [--config=<seuArquivoDeConfig>](https://jestjs.io/pt-BR/docs/cli#--configpath) ). Esse arquivo pode receber uma propriedade [collectCoverageFrom](https://jestjs.io/pt-BR/docs/configuration#collectcoveragefrom-array) , contendo o padrão a ser respeitado;
+
+> Utilizando o mesmo comando, via cli: `--collectCoverageFrom` , da seguinte forma:
+```
+...
+"scripts": {
+    ...
+    "test": "jest ./tests",
+    "test:coverage": "npm test -- --coverage --collectCoverageFrom='src/**/*.js'",
+    ...
+},
+...
+```
+
+**No *nyc***:
+
+> Utilizando um [arquivo de configuração](https://github.com/istanbuljs/nyc#configuration-files) `nyc.config.js` na raiz do projeto. Esse arquivo pode receber uma propriedade [include](https://github.com/istanbuljs/nyc#common-configuration-options) , contendo o padrão a ser respeitado;
+
+> Utilizando o mesmo comando, via cli: `--include` , da seguinte forma:
+```
+...
+"scripts": {
+    ...
+    "test": "mocha ./tests --recursive",
+    "test:coverage": "nyc --include='src/**/*.js' npm run test",
+    ...
+},
+...
+```
+
+> É possível ainda, via cli, utilizar o parâmetro `--all` para coletar a cobertura de todos os arquivos (mesmo os que não tem referência nos testes).
+
+**OBS.:** É uma boa prática colocar o código fonte na pasta `src/` e os testes em uma `testes/`. Assim a cobertura exclúi o `node_modules` e os próprios testes na hora de calcular a cobertura.
+
+**Rodando um teste de cobertura no projeto atual**
+
+```
+npm run test:coverage
+```
+
 ## Links
 
 - [Chai HTTP](https://www.chaijs.com/plugins/chai-http/)
 - ["teste de mesa"](https://pt.stackoverflow.com/questions/220474/o-que-%C3%A9-um-teste-de-mesa-como-aplic%C3%A1-lo)
 - [Instanbul](https://istanbul.js.org/)
+
+- [Artigo (em inglês): Integration Test](https://martinfowler.com/bliki/IntegrationTest.html)
+- [Stack Overflow): O que é um Teste de Mesa? Como aplicá-lo?](https://pt.stackoverflow.com/questions/220474/o-que-%C3%A9-um-teste-de-mesa-como-aplic%C3%A1-lo)
