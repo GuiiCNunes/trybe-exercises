@@ -297,6 +297,182 @@ $ pm2 start ecosystem.config.yml --env homolog
 $ pm2 start ecosystem.config.yml --env staging
 ```
 
+### Auto restart
+
+O *PM2* reinicia automaticamente processos que tenham falhado, sendo possível definir outras configurações para essas reinicializações.
+
+**Memória Máxima**
+
+Casos em que, por algum motivo, um processo passa a utilizar muito mais memória que o habitual.
+
+```
+$ pm2 start index.js --name <NOME_DO_PROCESSO> --max-memory-restart 20M
+```
+
+```
+apps:
+
+- name: app
+  script: ./index.js
+  max_memory_restart: 20M
+```
+
+> Note que o valor recebe a unidade de medida, que pode ser **K** ilobyte, **M** egabyte ou **G** igabyte.
+
+**Delay de restart**
+
+Recebe um valor fixo, em milisegundos, para o processo aguardar antes de reinciiar.
+
+```
+$ pm2 start index.js --name <NOME_DO_PROCESSO> --restart-delay 100
+```
+
+```
+apps:
+
+- name: app
+  script: ./index.js
+  restart_delay: 100
+```
+
+**Estratégias de Backoff**
+
+> Com as estratégias de Backoff , é possível configurar sua aplicação para reiniciar de maneira mais inteligente, em vez de somente ficar reiniciando sempre que houver uma exceção.
+
+> Configurando uma estratégia de exponential backoff , é possível ir incrementando um tempo de intervalo entre as tentativas, reduzindo, por exemplo, a carga de conexões em bancos de dados ou outro serviço externo.
+```
+$ pm2 start index.js --name <NOME_DO_PROCESSO> --exp-backoff-restart-delay 100
+```
+
+```
+apps:
+
+- name: app
+  script: ./index.js
+  exp_backoff_restart_delay: 100
+```
+
+> Nesse exemplo, ao ocorrer um erro, o processo vai aguardar 100ms. Durante esse período, o app ficará com status de waiting restart . Caso ocorra um novo erro, ele aguardará mais 150ms e, se o erro se repetir, ele aguarda mais 225ms, e assim por diante:
+
+* Vai reiniciar em 100ms;
+* Vai reiniciar em 150ms;
+* Vai reiniciar em 225ms.
+
+> Dessa maneira, o delay entre os restarts vai crescendo em um movimento exponencial, chegando no máximo 15000ms .
+
+### Assistindo a Alterações
+
+O *PM2* tambem pode observar os arquivos, e, em caso de alterações nos arquivos, reiniciar o processo. Similar ao *Nodemon*.
+
+```
+$ pm2 start index.js --name <NOME_DO_PROCESSO> --watch
+```
+
+```
+apps:
+
+- name: app
+  script: ./index.js
+  watch: ./
+```
+
+## PM2 com outras linguagens
+
+> Assim como o Heroku, o PM2 consegue inferir a linguagem e, consequentemente, saber como executá-la. Ao inferir que uma aplicação é em Node.js, por exemplo, ele sabe que deverá executar o arquivo com o comando node .
+
+> Essa relação é feita a partir de uma lista de "interpretadores". Nessa lista, estão presentes a extensão e o respectivo interpretador da linguagem que está sendo utilizada em um projeto. A lista default é:
+
+```
+{
+".sh": "bash",
+".py": "python",
+".rb": "ruby",
+".coffee" : "coffee",
+".php": "php",
+".pl" : "perl",
+".js" : "node"
+}
+```
+
+> Caso seja necessário executar uma aplicação em um formato diferente dos conhecidos pelo PM2, é possível utilizar a flag --interpreter e passar o interpretador desejado:
+
+```
+$ pm2 start hello-world.py --interpreter=python
+```
+
+## PM2 com Heroku
+
+> O PM2 possui, além do CLI, um módulo para ser utilizado como dependência do seu projeto. Esse módulo é utilizado para usar as vantagens do PM2 dentro de um container.
+
+Primeiro passo é instalar o módulo na raiz do projeto:
+
+```
+$ npm install pm2
+```
+
+No `package.json` do Heroku, é necessário configurar o *script* de *start*:
+
+```
+// ...
+"scripts": {
+  "start": "pm2-runtime start ecosystem.config.yml"
+}
+// ...
+```
+> Perceba que aqui estamos utilizando o módulo pm2-runtime , e não o CLI.
+
+Crie um arquivo `ecosystem.config.yml` na raiz do projeto:
+```
+apps:
+
+- name: app
+  script: ./index.js
+```
+
+Dê o *deploy* no Heroku!
+
+### Para aprofundar mais!
+
+**Modo Cluster + Heroku**
+
+> Uma feature bem legal de se explorar é o cluster mode . Como os Dynos são provisionados com multicores, conseguimos melhorar a resiliência e a performance de nossos apps .
+
+```
+apps:
+
+- name: app
+  script: ./index.js
+  exec_mode: cluster
+  instances: max
+```
+
+**Modo Cluster + Heroku + Dashboard**
+
+> Outra funcionalidade bem bacana é integrar o dashboard do PM2 ao Heroku para, além de ter um bom ambiente, sermos capazes de controlá-lo e monitorá-lo!
+
+> Assim como os passos anteriores, seguindo a proposta do PM2, o dashboard é bem simples de configurar. Basta adicionar as chaves (credenciais) à nossa aplicação que subirá no Heroku .
+
+> As credenciais ficam disponíveis no dashboard do PM2.
+
+Depois é só colocar como variáveis de ambiente do Heroku:
+
+```
+$ heroku config:set \
+ PM2_PUBLIC_KEY=CHAVE_PUBLICA \
+ PM2_SECRET_KEY=CHAVE_PRIVADA \
+ PM2_MACHINE_NAME=NOME_DO_SERVER \
+ --app NOME_DO_APP_NO_HEROKU
+```
+**Substituindo os valores pelos certos**.
+> Temos três variáveis no comando acima: uma chave pública ( PM2_PUBLIC_KEY ), uma privada ( PM2_SECRET_KEY ) e um nome para identificar a máquina ( PM2_MACHINE_NAME ) que você está utilizando.
+
 ## Links
 
 - [Node.js Cluster Module](https://nodejs.org/api/cluster.html#cluster_cluster)
+
+- [Nodemon - O PM para fase de desenvolvimento](https://www.npmjs.com/package/nodemon)
+- [Documentação Oficial PM2 - Métricas Customizadas](https://pm2.io/docs/plus/guide/custom-metrics/)
+- [Blog Oficial PM2 - Modo Cluster com Node, como funciona.](https://blog.pm2.io/2018-04-20/Node-js-clustering-made-easy-with-PM2/)
+- [Documentação Oficial Node.js - Como funciona o modo cluster](https://devcenter.heroku.com/articles/deploying-nodejs)
+- [PM por debaixo dos panos - Utilizando o systemd](https://rollout.io/blog/running-node-js-linux-systemd/)
+- [Learn yaml in Y minutes](https://learnxinyminutes.com/docs/yaml/)
