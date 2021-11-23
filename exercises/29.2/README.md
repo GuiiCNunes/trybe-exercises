@@ -45,4 +45,54 @@
 
 ![Sequelize](./sequelize.png)
 
+### Configurando
+
+* **Instalação**
+```
+npm install sequelize
+
+// Gera e executa as operações
+npm install sequelize-cli
+
+// Dependência do Banco
+npm install mysql2
+```
+
+* **Iniciar um projeto do Sequelize**
+```
+npx sequelize-cli init
+```
+  - Comando cria as pastas:
+    * `config` : contém um arquivo de configuração, que "fala" para o CLI como conectar-se com o nosso banco de dados;
+    * `models` : contém todos os modelos da nossa aplicação;
+    * `migrations` : contém todos os arquivos de migração da nossa aplicação;
+    * `seeders` : contém todos os arquivos de "seeds".
+
+* **Conectando com o banco**
+  * Configurar o arquivo: `config/config.json`
+    - Somente o objeto `development`.
+  ```
+  {
+    "development": {
+      "username": "root",
+      "password": "",
+      "database": "orm_example",
+      "host": "127.0.0.1",
+      "dialect": "mysql"
+    }
+
+    // No resto do arquivo você vai encontrar as convenções para conectar o Sequelize em outros ambientes
+  }
+  ```
+    * Usuário de acesso ao banco de dados;
+    * Senha de acesso ao banco de dados;
+    * Nome do banco de dados no qual queremos conectar;
+    * Host que estamos conectando - por ser local, utilizamos o 127.0.0.1 ;
+    * Dialect é, nada mais nada menos, qual banco estamos utilizando. Dito isso, passamos "mysql".
+
+* **Criando o Banco de Dados via CLI**
+  ```
+   npx sequelize db:create
+  ```
+
 ## Links
