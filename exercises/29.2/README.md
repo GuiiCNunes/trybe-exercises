@@ -141,4 +141,170 @@ npx sequelize-cli init
 
 > Um ponto **importante** de mudança estrutural que o sequelize traz é que, da forma que aprendemos antes, sem o sequelize, nossa lógica de validações, interação com o banco de dados (get, insert etc.), entre outras, se centralizavam no model. Com o Sequelize, essa lógica se centraliza nos controllers ou services. O modelo fica responsável apenas por representar a estrutura do banco de dados, para ajudar o sequelize a realizar as operações.
 
+### Migrações
+
+> Uma migration é uma forma de versionar o schema do banco de dados, ou seja, cada migration conterá um pedaço de código que representa, no conjunto, todas as alterações feitas no histórico do nosso banco de dados.
+
+> Imagine assim: você escreve um código definindo como um banco de dados deve ser criado, e esse código fica salvo num arquivo na pasta **migrations** . Após um tempo, uma atualização é feita, e uma coluna é acrescentada em uma tabela. O que você faz? Escreve em **outro arquivo** o código para acrescentar essa coluna. Cada arquivo é marcado com uma estampa datetime , então ao longo do tempo esse código, que é mantido no controle de versão do git, vai empilhando dezenas, às vezes centenas de arquivos, e cada um marca uma versão do banco de dados e o seu histórico de mudanças e evoluções. Quem clona um projeto pela primeira vez roda suas migrations para configurar, sem ter que fazer mais nada, o banco de dados no formato mais recente enviado para master . Aí é possível trabalhar localmente no banco de dados da aplicação sem medo de ele ser diferente da versão mais nova que encontramos em master .
+
+* `Up` e `Down` -> Toda `migration` sabe o que deve fazer no banco de dados(`Up`) e sabe como reverter(`Down`).
+
+> Isso significa que as migrations têm o poder de avançar ou reverter o seu banco de dados para qualquer um dos estados que ele já teve.
+
+* **Exemplo de Migration**
+
+```
+'use strict';
+module.exports = {
+  up: async (queryInterface, Sequelize) => {
+    await queryInterface.createTable('Users', {
+      id: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: Sequelize.INTEGER
+      },
+      fullName: {
+        type: Sequelize.STRING
+      },
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE
+      },
+      updatedAt: {
+        allowNull: false,
+        type: Sequelize.DATE
+      }
+    });
+  },
+  down: async (queryInterface, Sequelize) => {
+    await queryInterface.dropTable('Users');
+  }
+};
+```
+
+  * Parâmetros `queryInterface` e `Sequelize`
+    - Objetos que armazenam operações.
+    - `queryInterface` usado para modificar o banco. Utilziando o 'dialeto do banco'
+    - `Sequelize` armazena os tipos de dados disponíveis no banco.
+
+* **Adicionando Email**
+```
+'use strict';
+module.exports = {
+  up: async (queryInterface, Sequelize) => {
+    await queryInterface.createTable('Users', {
+      id: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: Sequelize.INTEGER
+      },
+      fullName: {
+        type: Sequelize.STRING
+      },
+      // adicionamos um novo campo 'email' como foi feito no model !
+      email: {
+        type: Sequelize.STRING
+      },
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE
+      },
+      updatedAt: {
+        allowNull: false,
+        type: Sequelize.DATE
+      }
+    });
+  },
+  down: async (queryInterface, Sequelize) => {
+    await queryInterface.dropTable('Users');
+  }
+};
+```
+
+* Para rodar as alterações no banco:
+```
+npx sequelize db:migrate
+```
+
+* Para reverter uma migration:
+```
+npx sequelize db:migrate:undo
+```
+
+* **Criando uma nova migration para alterar uma tabela já existente**
+
+  - **NÃO** rodar o `db:migrate:undo`para adicionar novos campos, ele exclui a tabela. Consequentemente excluindo as informações salvas.
+
+  > Criar uma nova migration que permita alterar a tabela, e para isso o objeto queryInterface possui funções específicas que permitem criar uma nova coluna, remover uma coluna ou mesmo mudar o tipo de uma coluna que já existe. Nesse caso, o queryInterface abstrai o que a função ALTER TABLE faz no SQL.
+
+  * Criar um novo arquivo de *Migration*:
+  ```
+   npx sequelize migration:generate --name add-column-phone-table-users
+  ```
+    - O `add-column-phone-table-users` é o noem que a *migration* terá, como um *commit*.
+  * Como será criado:
+  ```
+  'use strict';
+
+  module.exports = {
+    up: async (queryInterface, Sequelize) => {
+      /**
+      * Add altering commands here.
+      *
+      * Example:
+      * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
+      */
+    },
+
+    down: async (queryInterface, Sequelize) => {
+      /**
+      * Add reverting commands here.
+      *
+      * Example:
+      * await queryInterface.dropTable('users');
+      */
+    }
+  };
+  ```
+    * Esqueleto da `migration`.
+    * `Up`: Função de criar coluna `queryInterface.addColumn()`.
+    * `Down`: Função de remover coluna `queryInterface.removeColumn()`.
+  ```
+  'use strict';
+
+  module.exports = {
+    up: async (queryInterface, Sequelize) => {
+    await queryInterface.addColumn('Users', 'phone_num', {
+      type: Sequelize.STRING,
+    });
+    },
+
+    down: async (queryInterface, Sequelize) => {
+      await queryInterface.removeColumn('Users', 'phone_num');
+    }
+  };
+  ```
+  * Rode o comando para executar as mduanças:
+  ```
+   npx sequelize db:migrate
+  ```
+  * Alterar o model referente a tabela alterada:
+  ```
+  const User = (sequelize, DataTypes) => {
+    const User = sequelize.define("User", {
+    fullName: DataTypes.STRING,
+    email: DataTypes.STRING,
+    // aqui inserimos o datatype da coluna criada
+    phone_num: DataTypes.STRING,
+    });
+
+    return User;
+  }
+  ```
+
+
+
+
 ## Links
