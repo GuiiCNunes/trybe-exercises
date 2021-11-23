@@ -478,6 +478,60 @@ router.delete('/:id', async (req, res) => {
 module.exports = router;
 ```
 
+### Boas Práticas
+
+* Utilizar variáveis de ambiente nos valores sensíveis do `config/config.json`.
+
+* **Install dotenv**
+```
+ npm install dotenv
+```
+
+* Mudar o nome do arquivo `config.json` para `config.js`.
+
+* **Substituir o conteúdo do arquivo**.
+```
+require('dotenv').config();
+
+module.exports = {
+  development: {
+    username: process.env.MYSQL_USER,
+    password: process.env.MYSQL_PASSWORD,
+    database: process.env.MYSQL_DATABASE,
+    host: process.env.HOSTNAME,
+    dialect: 'mysql',
+  },
+  test: {
+    username: process.env.MYSQL_USER,
+    password: process.env.MYSQL_PASSWORD,
+    database: process.env.MYSQL_DATABASE,
+    host: process.env.HOSTNAME,
+    dialect: 'mysql',
+  },
+  production: {
+    username: process.env.MYSQL_USER,
+    password: process.env.MYSQL_PASSWORD,
+    database: process.env.MYSQL_DATABASE,
+    host: process.env.HOSTNAME,
+    dialect: 'mysql',
+  },
+};
+```
+
+* **Criar arquivo `.env` na raiz do projeto**
+```
+MYSQL_USER=root
+MYSQL_PASSWORD=senha_mysql
+MYSQL_DATABASE=orm_example
+HOSTNAME=localhost
+```
+
+* Modificar linha 8 do `models/index.js` para apontar para o arquivo `config.js` :
+```
+const config = require(__dirname + '/../config/config.json')[env]; // configuração antiga
+const config = require(__dirname + '/../config/config.js')[env];   // configuração nova
+```
+
 
 ## Links
 - [Documentação dos tipos de alterações do queryInterface](https://sequelize.org/master/manual/query-interface.html)
