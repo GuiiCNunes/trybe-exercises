@@ -306,6 +306,57 @@ npx sequelize db:migrate:undo
 
 * [Documentação dos tipos de alterações do queryInterface](https://sequelize.org/master/manual/query-interface.html)
 
+### Seeders
+
+* Comandos para popular bancos ao serem executados.
+
+> Conclusão: um seeder é usado para, basicamente, alimentar o banco de dados com informações necessárias para o funcionamento mínimo da aplicação. (...) Os seeds seguem a mesma linha das migrations.
+
+* **Criação de um seed**
+
+```
+ npx sequelize seed:generate --name users
+```
+  - Cria um arquivo na pasta `seeders` com o mesmo formato de um `migration`
+  - O exemplo cria um *seed* `users`, podendo alterar para o nome que fizer mais sentido.
+  - Colocando as informações iniciais do banco:
+  ```
+  'use strict';
+
+  module.exports = {
+    up: async (queryInterface, Sequelize) => queryInterface.bulkInsert('Users',
+      [
+        {
+          fullName: 'Leonardo',
+          email: 'leo@test.com',
+          // usamos a função CURRENT_TIMESTAMP do SQL para salvar a data e hora atual nos campos `createdAt` e `updatedAt`
+          createdAt: Sequelize.literal('CURRENT_TIMESTAMP'),
+          updatedAt: Sequelize.literal('CURRENT_TIMESTAMP'),
+        },
+        {
+          fullName: 'JEduardo',
+          email: 'edu@test.com',
+          createdAt: Sequelize.literal('CURRENT_TIMESTAMP'),
+          updatedAt: Sequelize.literal('CURRENT_TIMESTAMP'),
+        },
+      ], {}),
+
+    down: async (queryInterface) => queryInterface.bulkDelete('Users', null, {}),
+  };
+  ```
+  - Utiliza a função recebida como parâmetro em `queryInterface`.
+  - Chama o método `bulkInsert` dela. Que insere múltiplos dados na tabela.
+  - Segue o mesmo princípio do `up` e `down`.
+
+* **Executar o seed**
+```
+ npx sequelize db:seed:all
+```
+* **Reverter**
+```
+ npx sequelize db:seed:undo:all
+```
+
 
 ## Links
 - [Documentação dos tipos de alterações do queryInterface](https://sequelize.org/master/manual/query-interface.html)

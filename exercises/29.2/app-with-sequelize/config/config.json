@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "trybe",
-    "password": "trybe123",
+    "password": "trybe12345",
     "database": "orm_example",
     "host": "127.0.0.1",
     "dialect": "mysql"
