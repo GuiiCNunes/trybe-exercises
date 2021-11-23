@@ -304,7 +304,8 @@ npx sequelize db:migrate:undo
   }
   ```
 
-
+* [Documentação dos tipos de alterações do queryInterface](https://sequelize.org/master/manual/query-interface.html)
 
 
 ## Links
+- [Documentação dos tipos de alterações do queryInterface](https://sequelize.org/master/manual/query-interface.html)
