@@ -532,6 +532,239 @@ const config = require(__dirname + '/../config/config.json')[env]; // configura�
 const config = require(__dirname + '/../config/config.js')[env];   // configuração nova
 ```
 
+## Testes
+
+* Isolar as operações de IO, como no MongoDB.
+* Libs:
+
+```
+npm i mocha chai sinon chai-http -D
+```
+
+* Altera o `package.json`:
+
+```
+"scripts": {
+  ...
+  "test": "mocha ./tests/**/*$NAME*.test.js --exit"
+},
+```
+
+* Exporte o `app` criado para o `express()`:
+```
+module.exports = app;
+```
+
+* **TESTE DE INTEGRAÇÂO**
+```
+const chai = require('chai');
+const { stub } = require('sinon');
+const chaiHttp = require('chai-http');
+
+chai.use(chaiHttp);
+
+const { expect } = chai;
+
+const app = require('../../../index');
+const { User } = require('../../../models');
+
+describe('Busca todos os usuários', () => {
+  describe('quando não existe nenhum usuário cadastrado', () => {
+    const findAllStub = stub(User, 'findAll');
+
+    before(() => {
+      findAllStub.resolves([]);
+    });
+
+    after(() => {
+      findAllStub.restore();
+    });
+
+    it('called User.findAll', async () => {
+      await chai.request(app)
+        .get('/user');
+
+      expect(User.findAll.calledOnce).to.be.equals(true);
+    });
+
+    it('o status é 200', async () => {
+      const result = await chai.request(app)
+        .get('/user');
+
+      expect(result.status).to.be.equals(200);
+    });
+
+    it('a resposta é um array', async () => {
+      const result = await chai.request(app)
+        .get('/user');
+
+      expect(result.body).to.be.an('array');
+    });
+
+    it('o array está vazio', async () => {
+      const result = await chai.request(app)
+        .get('/user');
+
+      expect(result.body).to.be.empty;
+    });
+  });
+});
+```
+  - Perceba que estamos mockando o `findAll` do `User`.
+
+* **TESTES UNITÁRIOS**
+
+  - Para isso, utilizamos a biblioteca [Sequelize Test Helpers](https://www.npmjs.com/package/sequelize-test-helpers)
+  - Instalação:
+  ```
+  npm i -D sequelize-test-helpers
+  ```
+
+```
+const {
+  sequelize,
+  dataTypes,
+  checkModelName,
+  checkPropertyExists,
+} = require('sequelize-test-helpers');
+
+const UserModel = require('../../../models/user');
+
+describe('O model de User', () => {
+  const User = UserModel(sequelize, dataTypes);
+  const user = new User();
+
+  describe('possui o nome "User"', () => {
+    checkModelName(User)('User');
+  });
+
+  describe('possui as propriedades "fullName" e "email"', () => {
+    ['fullName', 'email'].forEach(checkPropertyExists(user));
+  });
+});
+```
+
+> É possível fazer essas asserções diretamente, porém, esse módulo já possui diversas funções prontas para facilitar a escrita dos testes.
+
+## Nomenclatura
+
+> No decorrer do conteúdo, pode-se perceber que durante as criação das tabelas (em migrations), as colunas `createdAt` e `updatedAt` estão em Camel Case , ou seja, seguem o formato que escrevemos em JavaScript , porém, a nomenclatura utilizada pelo MySQL segue o formato Snake Case , logo teríamos que declarar estas duas colunas no seguinte formato `created_at` e `updated_at` . Então basta mudarmos o nome das colunas em migrations? Sim, mas não iremos alterar o nome das nossas chaves, permaneceremos com `createdAt` e `updatedAt` . O que faremos, será adicionar o field na nossa declaração, para resolvermos esse impasse. Segue o formato que ficará nossa migration e seed:
+
+```javascript
+// migrations/[timestamp]-create-user.js
+// module.exports = {
+//   up: async (queryInterface, Sequelize) => {
+//     await queryInterface.createTable('Users', {
+//       id: {
+//         allowNull: false,
+//         autoIncrement: true,
+//         primaryKey: true,
+//         type: Sequelize.INTEGER,
+//       },
+//       fullName: {
+//         type: Sequelize.STRING,
+//       },
+//       email: {
+//         type: Sequelize.STRING,
+//       },
+//       createdAt: {
+//         allowNull: false,
+//         type: Sequelize.DATE,
+           field: 'created_at', // a coluna será criada no banco com este nome
+//       },
+//       updatedAt: {
+//         allowNull: false,
+//         type: Sequelize.DATE,
+           field: 'updated_at', // a coluna será criada no banco com este nome
+//       }
+//     });
+//   },
+
+//   down: async (queryInterface, Sequelize) => {
+//     await queryInterface.dropTable('Users');
+//   }
+// };
+```
+
+* **Alteração no `seed`**
+```javascript
+// seeders/[timestamp]-users.js
+module.exports = {
+//   up: async (queryInterface, Sequelize) => queryInterface.bulkInsert('Users',
+//     [
+//       {
+//         fullName: 'Leonardo',
+//         email: 'leo@test.com',
+           // com a mudança no nome das colunas, precisamos colocar no seed o formato correspondente a este novo nome
+           created_at: Sequelize.literal('CURRENT_TIMESTAMP'),
+           updated_at: Sequelize.literal('CURRENT_TIMESTAMP'),
+//       },
+//       {
+//         fullName: 'JEduardo',
+//         email: 'edu@test.com',
+           created_at: Sequelize.literal('CURRENT_TIMESTAMP'),
+           updated_at: Sequelize.literal('CURRENT_TIMESTAMP'),
+//       },
+//     ], {}),
+
+//   down: async (queryInterface) => queryInterface.bulkDelete('Users', null, {}),
+// };
+```
+
+* Essa configuração traz alguns erros, para solucionar, é preciso alterar o `model`, colocando:
+  - `underscored` : Este campo nos ajudará a resolver o primeiro problema, ele fará com que parâmetros recebidos em Camel Case , sejam convertidos em Snake Case , quando for feita uma consulta a respectiva tabela.
+  - `tableName` : Este campo nos ajudará a resolver o segundo problema, aqui podemos declarar explicitamente, qual o nome da tabela que estamos referenciando, retirando assim a responsabilidade do Sequelize de nomear a tabela.
+```javascript
+// const User = (sequelize, DataTypes) => {
+//   const User = sequelize.define('User', {
+//     fullName: DataTypes.STRING,
+//     email: DataTypes.STRING,
+       phoneNum: DataTypes.STRING,
+//   },
+     {
+       underscored: true,
+       tableName: 'Users',
+     });
+
+//   return User;
+// };
+
+// module.exports = User;
+```
+
+## Apontando pastas em local diferente da raiz
+
+Para deixar a raiz do projeto mais limpa, as pastas criadas pelo sequelize podem ser colocadar dentro de outras pastas (como o `/src`). Para isso, basta colocar as pastas lá e criar um arquivo(na raiz do projeto) de configuração que aponte para o novo caminho. Esse arquivo recebe o nome `.sequelizerc`. Seu conteúdo:
+
+```
+const path = require('path');
+
+module.exports = {
+  'config': path.resolve('src', 'config', 'config.json'),
+  'models-path': path.resolve('src', 'models'),
+  'seeders-path': path.resolve('src', 'seeders'),
+  'migrations-path': path.resolve('src', 'migrations'),
+};
+```
+
+- `path` : É um módulo interno do Node que nos fornece alguns utilitários para trabalharmos com caminhos de arquivos e diretórios;
+- `config` : Caminho para o arquivo de configuração;
+- `models-path` : Caminho para o diretório de models ;
+- `seeders-path` : Caminho para o diretório de seeders ;
+- `migrations-path` : Caminho para o diretório de migrations .
+
 
 ## Links
 - [Documentação dos tipos de alterações do queryInterface](https://sequelize.org/master/manual/query-interface.html)
+- [Sequelize Test Helpers](https://www.npmjs.com/package/sequelize-test-helpers)
+
+- [Iniciando com Sequelize](https://sequelize.org/v5/manual/getting-started.html)
+- [Transações Banco de Dados](https://pt.wikipedia.org/wiki/Transa%C3%A7%C3%A3o_(banco_de_dados))
+- [Apresentando e usando o Sequelize](http://www.macoratti.net/17/01/node_sequelize1.html)
+- [Sequelize Oficial Docs](https://sequelize.org/master/index.html)
+- [Sequelize CLI](https://github.com/sequelize/cli)
+- [CRUD com Sequelize](https://dev.to/nedsoft/performing-crud-with-sequelize-29cf)
+- [Mongoose](https://mongoosejs.com/)
+- [Introdução ao Mongoose](https://developer.mozilla.org/pt-BR/docs/Learn/Server-side/Express_Nodejs/mongoose)
+- [Artigo (Inglês): Unit testing Express API](https://medium.com/craft-academy/unit-testing-express-api-c55cb709b3ac)
+- [Sequelize Test Helpers](https://github.com/davesag/sequelize-test-helpers)
