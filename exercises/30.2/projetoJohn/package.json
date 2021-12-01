@@ -1,0 +1,25 @@
+{
+  "name": "live-lectures-t11",
+  "version": "1.0.0",
+  "description": "Este repositório armazena os códigos e scripts fornecidos durante as aulas ao vivo pelas pessoas especialistas da Trybe.",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  },
+  "scripts": {
+    "server": "nodemon server.js",
+    "client": "nodemon client"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tryber/sd-011-live-lectures.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tryber/sd-011-live-lectures/issues"
+  },
+  "homepage": "https://github.com/tryber/sd-011-live-lectures#readme"
+}
