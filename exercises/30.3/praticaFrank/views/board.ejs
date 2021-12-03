@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="http://localhost:4555/socket.io/socket.io.js"></script>
+  </head>
+  <body>
+    <h1>Notícias</h1>
+    <ul id="news">
+      <% news.forEach(item => { %>
+      <li><%= item.title %>: <%= item.message %></li>
+      <% }) %>
+    </ul>
+
+    <script>
+      const socket = io("http://localhost:4555");
+
+      socket.on("notification", (data) => {
+        const li = document.createElement("li");
+        const liText = document.createTextNode(
+          `${data.title}: ${data.message}`
+        );
+        li.appendChild(liText);
+        document.getElementById("news").appendChild(li);
+      });
+    </script>
+  </body>
+</html>
