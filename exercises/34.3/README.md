@@ -418,9 +418,114 @@ import requests
 
 ## Banco de Dados
 
+### Lib `pymongo`
 
+```
+ python3 -m venv .venv && source .venv/bin/activate
+ python3 -m pip install pymongo
+```
+
+- Criar conexão com o Banco de Dados:
+
+```python
+from pymongo import MongoClient
+
+# Por padrão o host é localhost e porta 27017
+# Estes valores podem ser modificados passando uma URI
+# client = MongoClient("mongodb://localhost:27017/")
+client = MongoClient()
+```
+
+- Acessando o Banco e as Coleções:
+
+```python
+from pymongo import MongoClient
+
+client = MongoClient()
+# o banco de dados catalogue será criado se não existir
+db = client.catalogue
+# a coleção books será criada se não existir
+students = db.books
+client.close()  # fecha a conexão com o banco de dados
+```
+
+- Adicionando documento:
+
+```python
+from pymongo import MongoClient
+
+client = MongoClient()
+db = client.catalogue
+# book representa um dado obtido na raspagem
+book = {
+    "title": "A Light in the Attic",
+}
+document_id = db.books.insert_one(book).inserted_id
+print(document_id)
+client.close()  # fecha a conexão com o banco de dados
+```
+
+- Adicionando multiplos documentos:
+
+```python
+from pymongo import MongoClient
+
+client = MongoClient()
+db = client.catalogue
+documents = [
+    {
+        "title": "A Light in the Attic",
+    },
+    {
+        "title": "Tipping the Velvet",
+    },
+    {
+        "title": "Soumission",
+    },
+]
+db.books.insert_many(documents)
+client.close()  # fecha a conexão com o banco de dados
+```
+
+- Buscas com `find` e `find_one`:
+
+```python
+from pymongo import MongoClient
+
+client = MongoClient()
+db = client.catalogue
+# busca um documento da coleção, sem filtros
+print(db.books.find_one())
+# busca utilizando filtros
+for book in db.books.find({"title": {"$regex": "t"}}):
+    print(book["title"])
+client.close()  # fecha a conexão com o banco de dados
+```
+
+- Utilizando gerenciador de contexto para encessar conexão:
+
+```python
+from pymongo import MongoClient
+
+
+with MongoClient() as client:
+    db = client.database
+    for book in db.books.find({"title": {"$regex": "t"}}):
+        print(book["title"])
+```
+
+## Scrapy
+
+> Uma excelente e poderosa ferramenta para raspagem de dados é a [Scrapy](https://scrapy.org/) . Ela possui, em sua implementação, todos mecanismos citados anteriormente e outros recursos adicionais.
 
 # Links
 
 - [Seletores CSS](https://devhints.io/css)
 - [Seletores Xpath](https://devhints.io/xpath)
+
+- [Análise de dados públicos - Professor Masanori](https://www.youtube.com/playlist?list=PLUukMN0DTKCu6g2Lq1KXLnIX6Ilk4DAPI)
+- [Requests/Web scraping](https://youtu.be/geGjMToK5u8)
+- [Conhecendo XPATH com Renne Rocha](https://youtu.be/vuLNc2yCNYk)
+- [Criando Web Crawlers com Scrapy e Selenium para páginas com Javascript - Gileno Filho](https://www.youtube.com/watch?v=AXSo4kBAygE)
+- [[PyBR14] Web crawling e scraping com Scrapy e Scrapy Cloud - Lidiane Taquehara](https://youtu.be/vmRfO2uULfw)
+- [Scrapy Video Tutorials](https://www.scrapinghub.com/learn-scrapy/)
